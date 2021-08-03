@@ -2,13 +2,15 @@ package com.bean;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "login_master")
 public class Login {
 	@Id
 	private int userid;
 	private String password;
-	private String typeOfUser;
+	private String role;
 	
 	public int getUserid()
 	{
@@ -26,11 +28,11 @@ public class Login {
 	{
 		this.password = password;
 	}
-	public String getTypeOfUser()
+	public String getRole()
 	{
-		return typeOfUser;
+		return role;
 	}
-	public void setTypeOfUser(String typeOfUser) {
-		this.typeOfUser = typeOfUser;
+	public void setRole(String role) {
+		this.role = role;
 	}	
 }

@@ -29,35 +29,23 @@ public class LoginController {
 	{
 		login.setUserid(Integer.parseInt(req.getParameter("userid")));
 		login.setPassword(req.getParameter("password"));
-		login.setTypeOfUser(req.getParameter("typeOfUser"));
+		String employeeResult = loginService.checkEmployeeUser(login);
 		ModelAndView mav = new ModelAndView();
-		if(login.getTypeOfUser().equals("admin"))
+		if(employeeResult==null)
 		{
-			String adminResult = loginService.checkAdminUser(login);
-			if(adminResult.equals("success"))
-			{
-				mav.setViewName("adminHome.jsp");
-			}
-			else
-			{
-				mav.addObject("msg", "InValid username or password");
-				mav.setViewName("index.jsp");
-			}
+			mav.setViewName("index.jsp");
+			return mav;
+		}
+		login.setRole(employeeResult);
+		/*if(login.getRole().equals("admin"))
+		{
+			mav.setViewName("adminHome.jsp");
 		}
 		else
 		{
-			String employeeResult = loginService.checkEmployeeUser(login);
-			if(employeeResult.equals("success"))
-			{
-				session.setAttribute("user", login.getUserid());
-				mav.setViewName("employeeHome.jsp");
-			}
-			else
-			{
-				mav.addObject("msg", "InValid username or password");
-				mav.setViewName("index.jsp");
-			}
-		}
+			mav.setViewName("employeeHome.jsp");
+		}*/
+		mav.setViewName(login.getRole().equals("admin")?"adminHome.jsp":"employeeHome.jsp");
 		/*session.removeAttribute("pmsg");
 		session.removeAttribute("productInfo");
 		session.removeAttribute("productUpdateMsg");

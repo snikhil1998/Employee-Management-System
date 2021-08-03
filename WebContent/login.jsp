@@ -11,26 +11,17 @@
 	<body>
 		<div class="container" style="border: 2px solid black; padding: 30px; margin: 30px;">
 			<form action="loginCheck.spring" method="post">
-				<div class="form-group">
-					<label for="userid">User ID</label> <input type="text" class="form-control" id="userid" name="userid">
+				<div class="form-group" style="position: relative; top: -10px">
+					<label for="userid">User ID</label>
+					<input type="text" class="form-control" id="userid" name="userid" required>
 				</div>
-				<div class="form-group">
+				<div class="form-group" style="position: relative; top: 0px">
 					<label for="password">Password</label>
-					<input name="password" type="password" class="form-control" id="password">
+					<input name="password" type="password" class="form-control" id="password" required>
 				</div>
-	
-				<div class="form-group">
-					<label class="form-check-label" for="flexRadioDefault1">Type Of User</label>
-					<div class="form-check">
-						<input class="form-check-input" type="radio" name="typeOfUser" id="typeOfUser1" value="admin">
-						<label class="form-check-label" for="typeOfUser1">Admin</label>
-					</div>
-					<div class="form-check">
-						<input class="form-check-input" type="radio" name="typeOfUser" id="typeOfUser2" value="customer">
-						<label class="form-check-label" for="typeOfUser2">Employee</label>
-					</div>
+				<div style="position: relative; top: 20px">
+					<input type="submit" class="btn btn-primary " value="Sign In"/>
 				</div>
-				<input type="submit" class="btn btn-primary " value="Sign In"/>
 			</form>
 			<div>
 				<span style="color: red">${requestScope.msg}</span>
