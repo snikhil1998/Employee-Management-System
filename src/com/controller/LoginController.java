@@ -25,7 +25,7 @@ public class LoginController {
 		return mav;
 	}
 	@RequestMapping(value = "loginCheck",method = RequestMethod.POST)
-	public ModelAndView storeEmployeeDetails(HttpServletRequest req, Login login, HttpSession session)
+	public ModelAndView loginRedirect(HttpServletRequest req, Login login, HttpSession session)
 	{
 		login.setUserid(Integer.parseInt(req.getParameter("userid")));
 		login.setPassword(req.getParameter("password"));
@@ -33,24 +33,34 @@ public class LoginController {
 		ModelAndView mav = new ModelAndView();
 		if(employeeResult==null)
 		{
+			mav.addObject("msg", "Invalid username or password");
 			mav.setViewName("index.jsp");
 			return mav;
 		}
 		login.setRole(employeeResult);
-		/*if(login.getRole().equals("admin"))
+		if(login.getRole().equals("admin"))
 		{
 			mav.setViewName("adminHome.jsp");
 		}
 		else
 		{
+			session.setAttribute("user", login.getUserid());
 			mav.setViewName("employeeHome.jsp");
-		}*/
-		mav.setViewName(login.getRole().equals("admin")?"adminHome.jsp":"employeeHome.jsp");
-		/*session.removeAttribute("pmsg");
-		session.removeAttribute("productInfo");
-		session.removeAttribute("productUpdateMsg");
-		session.removeAttribute("orderMsg");
-		session.removeAttribute("amountAddMsg");*/
+		}
+		return mav;
+	}
+	@RequestMapping(value = "adminDashboard",method = RequestMethod.GET)
+	public ModelAndView adminDashboard()
+	{
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("adminHome.jsp");
+		return mav;
+	}
+	@RequestMapping(value = "logout",method = RequestMethod.GET)
+	public ModelAndView logOut()
+	{
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("index.jsp");
 		return mav;
 	}
 }

@@ -7,9 +7,11 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.bean.Compliance;
 
+@Repository
 public class ComplianceDao
 {
 	@Autowired
