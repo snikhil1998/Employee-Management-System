@@ -9,18 +9,18 @@ import javax.persistence.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.bean.Department;
+import com.bean.StatusReport;
 
 @Repository
-public class DepartmentDao
+public class StatusReportDao
 {
 	@Autowired
 	EntityManagerFactory emf;
 	
-	public List<Department> getDepartmentsList()
+	public List<StatusReport> getStatusReportsList()
 	{
 		EntityManager manager = emf.createEntityManager();
-		Query qry = manager.createQuery("select d from Department d");
+		Query qry = manager.createQuery("select sr from StatusReport sr");
 		return qry.getResultList();
 	}
 }

@@ -27,7 +27,7 @@ public class LoginDao
 		List<Employee> list= qry.getResultList();
 		return list.size();*/
 		EntityManager manager = emf.createEntityManager();
-		Query qry = manager.createQuery("select lm from Login lm where lm.userid=:userid and lm.password=:password");
+		Query qry = manager.createQuery("select l from Login l where l.userid=:userid and l.password=:password");
 		qry.setParameter("userid", ll.getUserid());
 		qry.setParameter("password", ll.getPassword());
 		List<Login> list = qry.getResultList();

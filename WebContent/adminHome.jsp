@@ -6,7 +6,7 @@
 		<meta charset="UTF-8">
 		<title>Employee Management System - Admin Home</title>
 	</head>
-<body>
-	<h2>Employee Management System - Admin Home</h2>
-</body>
+	<body>
+		<h2>Employee Management System - Admin Home</h2>
+	</body>
 </html>
