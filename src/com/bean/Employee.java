@@ -66,4 +66,8 @@ public class Employee
 	{
 		this.department_id = department_id;
 	}
+	/*public boolean isSameAs(Employee emp)
+	{
+		return this.empid==emp.getEmpid() && this.firstname==emp.getFirstname() && this.lastname==emp.getLastname() && this.dob==emp.getDob() && this.email==emp.getEmail() && this.department_id==emp.getDepartment_id(); 
+	}*/
 }

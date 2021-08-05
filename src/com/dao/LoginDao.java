@@ -10,6 +10,7 @@ import javax.persistence.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.bean.Employee;
 import com.bean.Login;
 
 @Repository
@@ -19,13 +20,7 @@ public class LoginDao
 	EntityManagerFactory emf;
 	
 	public String checkLoginDetails(Login ll)
-	{		
-		/*EntityManager manager = emf.createEntityManager();
-		Query qry = manager.createQuery("select c from Customer c where c.email=?1 and c.password=?2");
-		qry.setParameter(1, ll.getUserid());
-		qry.setParameter(2, ll.getPassword());
-		List<Employee> list= qry.getResultList();
-		return list.size();*/
+	{
 		EntityManager manager = emf.createEntityManager();
 		Query qry = manager.createQuery("select l from Login l where l.userid=:userid and l.password=:password");
 		qry.setParameter("userid", ll.getUserid());
@@ -41,5 +36,14 @@ public class LoginDao
 		manager.persist(ll);
 		tran.commit();
 		return manager.find(Login.class, ll.getUserid())!=null;
+	}
+	public boolean deleteLoginCredentials(long userid)
+	{
+		EntityManager manager = emf.createEntityManager();
+		EntityTransaction tran = manager.getTransaction();
+		tran.begin();
+		manager.remove(manager.find(Login.class, userid));
+		tran.commit();
+		return manager.find(Login.class, userid)==null;
 	}
 }

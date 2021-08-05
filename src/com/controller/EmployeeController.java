@@ -54,4 +54,50 @@ public class EmployeeController
 		mav.setViewName("listEmployees.jsp");
 		return mav;
 	}
+	@RequestMapping(value = "inputEmployeeId")
+	public ModelAndView editEmployeeDetailsPage(HttpSession session)
+	{
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("inputEmployeeId.jsp");
+		return mav;
+	}
+	@RequestMapping(value = "submitEmployeeId", method = RequestMethod.POST)
+	public ModelAndView loadEmployeeDetailsInEditPage(HttpServletRequest req, HttpSession session)
+	{
+		ModelAndView mav = new ModelAndView();
+		session.setAttribute("employeeDetails", employeeService.getEmployeeDetails(Long.parseLong(req.getParameter("empid"))));
+		session.setAttribute("allDepartmentsDetails", departmentService.getAllDepartmentsDetails());
+		mav.setViewName("editEmployeeDetails.jsp");
+		return mav;
+	}
+	@RequestMapping(value = "editEmployeeDetails", method = RequestMethod.POST)
+	public ModelAndView editEmployeeDetails(HttpServletRequest req, HttpSession session)
+	{
+		Employee emp = new Employee();
+		emp.setEmpid(Long.parseLong(req.getParameter("empid")));
+		emp.setFirstname(req.getParameter("firstname"));
+		emp.setLastname(req.getParameter("lastname"));
+		emp.setDob(Date.valueOf(req.getParameter("dob")));
+		emp.setEmail(req.getParameter("email"));
+		emp.setDepartment_id(Long.parseLong(req.getParameter("department_id")));
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("msg", employeeService.updateEmployeeDetails(emp));
+		mav.setViewName("adminHome.jsp");
+		return mav;
+	}
+	@RequestMapping(value = "deleteEmployeeDetails")
+	public ModelAndView deleteEmployeeDetailsPage(HttpServletRequest req, HttpSession session)
+	{
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("deleteEmployeeDetails.jsp");
+		return mav;
+	}
+	@RequestMapping(value = "removeEmployeeDetails", method = RequestMethod.POST)
+	public ModelAndView deleteEmployeeDetails(HttpServletRequest req, HttpSession session)
+	{
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("msg", employeeService.deleteEmployeeDetails(Long.parseLong(req.getParameter("empid"))));
+		mav.setViewName("adminHome.jsp");
+		return mav;
+	}
 }

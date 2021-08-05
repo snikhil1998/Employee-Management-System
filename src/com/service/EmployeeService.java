@@ -22,4 +22,16 @@ public class EmployeeService
 	{
 		return employeeDao.getAllEmployeesDetails();
 	}
+	public Employee getEmployeeDetails(long empid)
+	{
+		return employeeDao.getEmployeeDetails(empid);
+	}
+	public String updateEmployeeDetails(Employee emp)
+	{
+		return employeeDao.updateEmployeeDetails(emp)?"Employee details updated successfully":"Unable to update employee details";
+	}
+	public String deleteEmployeeDetails(long empid)
+	{
+		return employeeDao.deleteEmployeeDetails(empid)?"Employee details deleted successfully":"Unable to delete employee details";
+	}
 }

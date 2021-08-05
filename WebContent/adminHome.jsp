@@ -27,7 +27,7 @@
 				<a class="nav-link" href="viewEmployeesDetails.spring">List Employees</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="editEmployeeDetails.spring">Edit Employee Details</a>
+				<a class="nav-link" href="inputEmployeeId.spring">Edit Employee Details</a>
 			</li>
 			<li class="nav-item">
 				<a class="nav-link" href="deleteEmployeeDetails.spring">Delete Employee Details</a>
