@@ -11,18 +11,18 @@ import javax.persistence.Table;
 public class Employee
 {
 	@Id
-	private int empid;
+	private long empid;
 	private String firstname;
 	private String lastname;
 	private Date dob;
 	private String email;
-	private int department_id;
+	private long department_id;
 	
-	public int getEmpid()
+	public long getEmpid()
 	{
 		return empid;
 	}
-	public void setEmpid(int empid)
+	public void setEmpid(long empid)
 	{
 		this.empid = empid;
 	}
@@ -58,11 +58,11 @@ public class Employee
 	{
 		this.email = email;
 	}
-	public int getDepartment_id()
+	public long getDepartment_id()
 	{
 		return department_id;
 	}
-	public void setDepartment_id(int department_id)
+	public void setDepartment_id(long department_id)
 	{
 		this.department_id = department_id;
 	}

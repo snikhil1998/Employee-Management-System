@@ -8,15 +8,15 @@ import javax.persistence.Table;
 @Table(name = "login_master")
 public class Login {
 	@Id
-	private int userid;
+	private long userid;
 	private String password;
 	private String role;
 	
-	public int getUserid()
+	public long getUserid()
 	{
 		return userid;
 	}
-	public void setUserid(int userid)
+	public void setUserid(long userid)
 	{
 		this.userid = userid;
 	}

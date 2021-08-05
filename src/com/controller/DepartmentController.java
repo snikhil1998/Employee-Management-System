@@ -19,28 +19,28 @@ public class DepartmentController
 	DepartmentService departmentService;
 	
 	@RequestMapping(value = "createDepartment", method = RequestMethod.GET)
-	public ModelAndView createDepartment()
+	public ModelAndView addDepartmentDetailsPage()
 	{
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("createDepartment.jsp");
-		return mav;
-	}
-	@RequestMapping(value = "listDepartments", method = RequestMethod.GET)
-	public ModelAndView listDepartments()
-	{
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("listDepartments.jsp");
 		return mav;
 	}
 	@RequestMapping(value = "addDepartmentDetails", method = RequestMethod.POST)
 	public ModelAndView addDepartmentDetails(HttpServletRequest req, HttpSession session)
 	{
 		Department dpt = new Department();
-		dpt.setDepartment_id(Integer.parseInt(req.getParameter("department_id")));
 		dpt.setDepartment_nm(req.getParameter("department_nm"));
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("msg", departmentService.storeDepartmentDetails(dpt));
 		mav.setViewName("adminHome.jsp");
+		return mav;
+	}
+	@RequestMapping(value = "viewDepartmentsDetails", method = RequestMethod.GET)
+	public ModelAndView viewAllDepartmentsDetails(HttpSession session)
+	{
+		ModelAndView mav = new ModelAndView();
+		session.setAttribute("allDepartmentsDetails", departmentService.getAllDepartmentsDetails());
+		mav.setViewName("listDepartments.jsp");
 		return mav;
 	}
 }

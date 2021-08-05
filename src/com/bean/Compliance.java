@@ -11,17 +11,17 @@ import javax.persistence.Table;
 public class Compliance
 {
 	@Id
-	private int complianceid;
+	private long complianceid;
 	private String rltype;
 	private String details;
 	private Date createdate;
-	private int department_id;
+	private long department_id;
 	
-	public int getComplianceid()
+	public long getComplianceid()
 	{
 		return complianceid;
 	}
-	public void setComplianceid(int complianceid)
+	public void setComplianceid(long complianceid)
 	{
 		this.complianceid = complianceid;
 	}
@@ -49,11 +49,11 @@ public class Compliance
 	{
 		this.createdate = createdate;
 	}
-	public int getDepartment_id()
+	public long getDepartment_id()
 	{
 		return department_id;
 	}
-	public void setDepartment_id(int department_id)
+	public void setDepartment_id(long department_id)
 	{
 		this.department_id = department_id;
 	}

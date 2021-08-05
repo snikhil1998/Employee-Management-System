@@ -27,7 +27,7 @@ public class DepartmentDao
 		tran.commit();
 		return manager.find(Department.class, dpt.getDepartment_id())!=null;
 	}
-	public List<Department> getDepartmentsList()
+	public List<Department> getAllDepartmentsDetails()
 	{
 		EntityManager manager = emf.createEntityManager();
 		Query qry = manager.createQuery("select d from Department d");

@@ -10,35 +10,35 @@ import javax.persistence.Table;
 @Table(name = "statusreport")
 public class StatusReport
 {
-	private int complianceid;
+	private long complianceid;
 	@Id
-	private int statusrptid;
-	private int empid;
+	private long statusrptid;
+	private long empid;
 	private String comments;
 	private Date createdate;
-	private int department_id;
+	private long department_id;
 	
-	public int getComplianceid()
+	public long getComplianceid()
 	{
 		return complianceid;
 	}
-	public void setComplianceid(int complianceid)
+	public void setComplianceid(long complianceid)
 	{
 		this.complianceid = complianceid;
 	}
-	public int getStatusrptid()
+	public long getStatusrptid()
 	{
 		return statusrptid;
 	}
-	public void setStatusrptid(int statusrptid)
+	public void setStatusrptid(long statusrptid)
 	{
 		this.statusrptid = statusrptid;
 	}
-	public int getEmpid()
+	public long getEmpid()
 	{
 		return empid;
 	}
-	public void setEmpid(int empid)
+	public void setEmpid(long empid)
 	{
 		this.empid = empid;
 	}
@@ -58,11 +58,11 @@ public class StatusReport
 	{
 		this.createdate = createdate;
 	}
-	public int getDepartment_id()
+	public long getDepartment_id()
 	{
 		return department_id;
 	}
-	public void setDepartment_id(int department_id)
+	public void setDepartment_id(long department_id)
 	{
 		this.department_id = department_id;
 	}

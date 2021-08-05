@@ -11,14 +11,10 @@
 		<div class="container" style="border: 2px solid black; padding: 30px; margin: 30px;">
 			<form action="addDepartmentDetails.spring" method="post">
 				<div class="form-group" style="position: relative; top: -10px">
-					<label for="department_id">Department ID</label>
-					<input type="text" class="form-control" id="department_id" name="department_id" required>
-				</div>
-				<div class="form-group" style="position: relative; top: 0px">
 					<label for="department_nm">Department Name</label>
 					<input name="department_nm" type="text" class="form-control" id="department_nm" required>
 				</div>
-				<div style="position: relative; top: 20px">
+				<div style="position: relative; top: 10px">
 					<input type="submit" class="btn btn-primary " value="Submit"/>
 				</div>
 			</form>

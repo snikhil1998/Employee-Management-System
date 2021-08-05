@@ -27,7 +27,7 @@ public class LoginController {
 	@RequestMapping(value = "loginCheck",method = RequestMethod.POST)
 	public ModelAndView loginRedirect(HttpServletRequest req, Login login, HttpSession session)
 	{
-		login.setUserid(Integer.parseInt(req.getParameter("userid")));
+		login.setUserid(Long.parseLong(req.getParameter("userid")));
 		login.setPassword(req.getParameter("password"));
 		String employeeResult = loginService.checkEmployeeUser(login);
 		ModelAndView mav = new ModelAndView();
