@@ -1,7 +1,6 @@
 package com.controller;
 
 import java.sql.Date;
-import java.time.LocalDate;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
@@ -53,7 +52,7 @@ public class ComplianceController
 		return mav;
 	}
 	@RequestMapping(value = "viewCompliancesDetails")
-	public ModelAndView viewAllEmployeesDetails(HttpSession session)
+	public ModelAndView viewAllCompliancesDetails(HttpSession session)
 	{
 		ModelAndView mav = new ModelAndView();
 		if(!session.getAttribute("role").equals("admin"))
@@ -72,7 +71,7 @@ public class ComplianceController
 		return mav;
 	}
 	@RequestMapping(value = "viewAssignedCompliancesDetails")
-	public ModelAndView viewAssignedEmployeesDetails(HttpSession session)
+	public ModelAndView viewAssignedCompliancesDetails(HttpSession session)
 	{
 
 		ModelAndView mav = new ModelAndView();
