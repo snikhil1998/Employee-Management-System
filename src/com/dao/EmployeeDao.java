@@ -31,7 +31,14 @@ public class EmployeeDao {
 		ll.setUserid(emp.getEmpid());
 		ll.setPassword("emp");
 		ll.setRole("user");
-		return loginDao.addLoginCredentials(ll) && manager.find(Employee.class, emp.getEmpid())!=null;
+		if(!loginDao.addLoginCredentials(ll))
+		{
+			tran.begin();
+			manager.remove(emp);
+			tran.commit();
+			return false;
+		}
+		return manager.find(Employee.class, emp.getEmpid())!=null;
 	}
 	public List<Employee> getAllEmployeesDetails()
 	{
@@ -55,17 +62,16 @@ public class EmployeeDao {
 	}
 	public boolean deleteEmployeeDetails(long empid)
 	{
-		if(empid==1)
+		boolean loginCredentialsRemoved = loginDao.deleteLoginCredentials(empid);
+		if(!loginCredentialsRemoved)
 		{
 			return false;
 		}
-		boolean loginCredentialsRemoved = loginDao.deleteLoginCredentials(empid);
 		EntityManager manager = emf.createEntityManager();
-//		Employee emp = manager.find(Employee.class, empid);
 		EntityTransaction tran = manager.getTransaction();
 		tran.begin();
 		manager.remove(manager.find(Employee.class, empid));
 		tran.commit();
-		return loginCredentialsRemoved && manager.find(Employee.class, empid)==null;
+		return manager.find(Employee.class, empid)==null;
 	}
 }

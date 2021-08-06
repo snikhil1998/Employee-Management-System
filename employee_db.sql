@@ -41,7 +41,8 @@ foreign key (department_id) references department(department_id)
 
 create table login_master(
 userid int(10) not null primary key auto_increment,
-password varchar(30) not null,
+-- password varchar(30) not null,
+password varchar(128) not null,
 role varchar(20) not null,
 foreign key (userid) references employees(empid)
 );
@@ -52,5 +53,5 @@ insert into department(department_nm) values("below");
 insert into employees(firstname, lastname, dob, email, department_id) values("a", "b", str_to_date("1998-1-1", "%Y-%m-%d"), "p@q.r", 1);
 insert into employees(firstname, lastname, dob, email, department_id) values("c", "d", str_to_date("1998-1-2", "%Y-%m-%d"), "s@t.u", 2);
 
-insert into login_master(password, role) values("admin", "admin");
-insert into login_master(password, role) values("emp", "user");
+insert into login_master(password, role) values(sha2(sha2("admin", 512), 512), "admin");
+insert into login_master(password, role) values(sha2(sha2("emp", 512), 512), "user");
