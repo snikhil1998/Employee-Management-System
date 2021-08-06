@@ -44,9 +44,9 @@
 		</ul>
 		<h3 style="position: relative; left: 10px; top: 20px;">Status Reports</h3>
 		<ul class="nav" style="position: relative; left: 10px; top: 10px;">
-			<li class="nav-item">
+			<!-- <li class="nav-item">
 				<a class="nav-link" href="createStatusReport.spring">Create Status Report</a>
-			</li>
+			</li> -->
 			<li class="nav-item">
 				<a class="nav-link" href="viewStatusReportsDetails.spring">List Status Reports</a>
 			</li>

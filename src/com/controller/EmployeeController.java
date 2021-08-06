@@ -1,17 +1,18 @@
 package com.controller;
 
 import java.sql.Date;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.bean.Department;
 import com.bean.Employee;
 import com.service.DepartmentService;
 import com.service.EmployeeService;
@@ -51,6 +52,12 @@ public class EmployeeController
 	{
 		ModelAndView mav = new ModelAndView();
 		session.setAttribute("allEmployeesDetails", employeeService.getAllEmployeesDetails());
+		HashMap<Long, String> hm = new HashMap<Long, String>();
+		for(Department dpt : departmentService.getAllDepartmentsDetails())
+		{
+			hm.put(dpt.getDepartment_id(), dpt.getDepartment_nm());
+		}
+		session.setAttribute("allDepartmentsDetails", hm);
 		mav.setViewName("listEmployees.jsp");
 		return mav;
 	}

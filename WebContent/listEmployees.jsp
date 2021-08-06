@@ -52,7 +52,7 @@
 					<th>Last Name</th>
 					<th>Date of Birth</th>
 					<th>Email</th>
-					<th>Department ID</th>
+					<th>Department</th>
 				</tr>
 				<core:forEach items="${sessionScope.allEmployeesDetails}" var="employee">
 					<tr>
@@ -61,7 +61,7 @@
 						<td>${employee.lastname}</td>
 						<td>${employee.dob}</td>
 						<td>${employee.email}</td>
-						<td>${employee.department_id}</td>
+						<td>${sessionScope.allDepartmentsDetails.get(employee.department_id)}</td>
 					</tr>
 				</core:forEach>
 			</table>

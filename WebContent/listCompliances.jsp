@@ -51,7 +51,7 @@
 					<th>RL Type</th>
 					<th>Details</th>
 					<th>Date Created</th>
-					<th>Department ID</th>
+					<th>Department</th>
 				</tr>
 				<core:forEach items="${sessionScope.allCompliancesDetails}" var="compliance">
 					<tr>
@@ -59,7 +59,7 @@
 						<td>${compliance.rltype}</td>
 						<td>${compliance.details}</td>
 						<td>${compliance.createdate}</td>
-						<td>${compliance.department_id}</td>
+						<td>${sessionScope.allDepartmentsDetails.get(compliance.department_id)}</td>
 					</tr>
 				</core:forEach>
 			</table>

@@ -21,6 +21,10 @@
 					<input name="details" type="text" class="form-control" id="details" required>
 				</div>
 				<div class="form-group" style="margin: 10px;">
+					<label for="createdate">Date of Birth</label>
+					<input name="createdate" type="date" class="form-control" id="createdate" required>
+				</div>
+				<div class="form-group" style="margin: 10px;">
 					<label for="department_id">Department ID</label>
 					<select name="department_id" class="form-control" id="department_id" required>
 						<option disabled selected value> -- select an option -- </option>

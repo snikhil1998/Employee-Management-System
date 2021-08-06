@@ -24,7 +24,6 @@ public class ComplianceDao
 	{
 		EntityManager manager = emf.createEntityManager();
 		EntityTransaction tran = manager.getTransaction();
-		c.setCreatedate(Date.valueOf(LocalDate.now()));
 		tran.begin();
 		manager.persist(c);
 		tran.commit();

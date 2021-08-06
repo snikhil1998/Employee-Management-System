@@ -1,5 +1,9 @@
 package com.controller;
 
+import java.sql.Date;
+import java.time.LocalDate;
+import java.util.HashMap;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -10,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bean.Compliance;
+import com.bean.Department;
 import com.service.ComplianceService;
 import com.service.DepartmentService;
 
@@ -35,7 +40,7 @@ public class ComplianceController
 		Compliance c = new Compliance();
 		c.setRltype(req.getParameter("rltype"));
 		c.setDetails(req.getParameter("details"));
-//		c.setCreatedate(Date.valueOf(LocalDate.now()));
+		c.setCreatedate(Date.valueOf(req.getParameter("createdate")));
 		c.setDepartment_id(Long.parseLong(req.getParameter("department_id")));
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("msg", complianceService.storeComplianceInformation(c));
@@ -47,6 +52,12 @@ public class ComplianceController
 	{
 		ModelAndView mav = new ModelAndView();
 		session.setAttribute("allCompliancesDetails", complianceService.getAllCompliancesDetails());
+		HashMap<Long, String> hm = new HashMap<Long, String>();
+		for(Department dpt : departmentService.getAllDepartmentsDetails())
+		{
+			hm.put(dpt.getDepartment_id(), dpt.getDepartment_nm());
+		}
+		session.setAttribute("allDepartmentsDetails", hm);
 		mav.setViewName("listCompliances.jsp");
 		return mav;
 	}
