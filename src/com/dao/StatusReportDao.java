@@ -17,7 +17,7 @@ public class StatusReportDao
 	@Autowired
 	EntityManagerFactory emf;
 	
-	public List<StatusReport> getStatusReportsList()
+	public List<StatusReport> getAllStatusReportsDetails()
 	{
 		EntityManager manager = emf.createEntityManager();
 		Query qry = manager.createQuery("select sr from StatusReport sr");
