@@ -29,6 +29,11 @@ public class EmployeeController
 	public ModelAndView addEmployeeDetailsPage(HttpSession session)
 	{
 		ModelAndView mav = new ModelAndView();
+		if(!session.getAttribute("role").equals("admin"))
+		{
+			mav.setViewName("WEB-INF/employeeHome.jsp");
+			return mav;
+		}
 		session.setAttribute("allDepartmentsDetails", departmentService.getAllDepartmentsDetails());
 		mav.setViewName("WEB-INF/addEmployeeDetails.jsp");
 		return mav;
@@ -51,6 +56,11 @@ public class EmployeeController
 	public ModelAndView viewAllEmployeesDetails(HttpSession session)
 	{
 		ModelAndView mav = new ModelAndView();
+		if(!session.getAttribute("role").equals("admin"))
+		{
+			mav.setViewName("WEB-INF/employeeHome.jsp");
+			return mav;
+		}
 		session.setAttribute("allEmployeesDetails", employeeService.getAllEmployeesDetails());
 		HashMap<Long, String> hm = new HashMap<Long, String>();
 		for(Department dpt : departmentService.getAllDepartmentsDetails())
@@ -65,6 +75,11 @@ public class EmployeeController
 	public ModelAndView editEmployeeDetailsPage(HttpSession session)
 	{
 		ModelAndView mav = new ModelAndView();
+		if(!session.getAttribute("role").equals("admin"))
+		{
+			mav.setViewName("WEB-INF/employeeHome.jsp");
+			return mav;
+		}
 		mav.setViewName("WEB-INF/inputEmployeeId.jsp");
 		return mav;
 	}
@@ -96,6 +111,11 @@ public class EmployeeController
 	public ModelAndView deleteEmployeeDetailsPage(HttpServletRequest req, HttpSession session)
 	{
 		ModelAndView mav = new ModelAndView();
+		if(!session.getAttribute("role").equals("admin"))
+		{
+			mav.setViewName("WEB-INF/employeeHome.jsp");
+			return mav;
+		}
 		mav.setViewName("WEB-INF/deleteEmployeeDetails.jsp");
 		return mav;
 	}
@@ -103,6 +123,11 @@ public class EmployeeController
 	public ModelAndView deleteEmployeeDetails(HttpServletRequest req, HttpSession session)
 	{
 		ModelAndView mav = new ModelAndView();
+		if(!session.getAttribute("role").equals("admin"))
+		{
+			mav.setViewName("WEB-INF/employeeHome.jsp");
+			return mav;
+		}
 		mav.addObject("msg", employeeService.deleteEmployeeDetails(Long.parseLong(req.getParameter("empid"))));
 		mav.setViewName("WEB-INF/adminHome.jsp");
 		return mav;

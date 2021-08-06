@@ -19,9 +19,15 @@ public class DepartmentController
 	DepartmentService departmentService;
 	
 	@RequestMapping(value = "createDepartment", method = RequestMethod.GET)
-	public ModelAndView addDepartmentDetailsPage()
+	public ModelAndView addDepartmentDetailsPage(HttpSession session)
 	{
+
 		ModelAndView mav = new ModelAndView();
+		if(!session.getAttribute("role").equals("admin"))
+		{
+			mav.setViewName("WEB-INF/employeeHome.jsp");
+			return mav;
+		}
 		mav.setViewName("WEB-INF/createDepartment.jsp");
 		return mav;
 	}
@@ -39,6 +45,11 @@ public class DepartmentController
 	public ModelAndView viewAllDepartmentsDetails(HttpSession session)
 	{
 		ModelAndView mav = new ModelAndView();
+		if(!session.getAttribute("role").equals("admin"))
+		{
+			mav.setViewName("WEB-INF/employeeHome.jsp");
+			return mav;
+		}
 		session.setAttribute("allDepartmentsDetails", departmentService.getAllDepartmentsDetails());
 		mav.setViewName("WEB-INF/listDepartments.jsp");
 		return mav;

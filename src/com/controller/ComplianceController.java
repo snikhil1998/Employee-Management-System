@@ -30,6 +30,11 @@ public class ComplianceController
 	public ModelAndView createCompliancePage(HttpSession session)
 	{
 		ModelAndView mav = new ModelAndView();
+		if(!session.getAttribute("role").equals("admin"))
+		{
+			mav.setViewName("WEB-INF/employeeHome.jsp");
+			return mav;
+		}
 		session.setAttribute("allDepartmentsDetails", departmentService.getAllDepartmentsDetails());
 		mav.setViewName("WEB-INF/createCompliance.jsp");
 		return mav;
@@ -51,6 +56,11 @@ public class ComplianceController
 	public ModelAndView viewAllEmployeesDetails(HttpSession session)
 	{
 		ModelAndView mav = new ModelAndView();
+		if(!session.getAttribute("role").equals("admin"))
+		{
+			mav.setViewName("WEB-INF/employeeHome.jsp");
+			return mav;
+		}
 		session.setAttribute("allCompliancesDetails", complianceService.getAllCompliancesDetails());
 		HashMap<Long, String> hm = new HashMap<Long, String>();
 		for(Department dpt : departmentService.getAllDepartmentsDetails())
@@ -64,7 +74,13 @@ public class ComplianceController
 	@RequestMapping(value = "viewAssignedCompliancesDetails")
 	public ModelAndView viewAssignedEmployeesDetails(HttpSession session)
 	{
+
 		ModelAndView mav = new ModelAndView();
+		if(!session.getAttribute("role").equals("user"))
+		{
+			mav.setViewName("WEB-INF/adminHome.jsp");
+			return mav;
+		}
 		session.setAttribute("allAssignedCompliancesDetails", complianceService.getDepartmentCompliancesDetails((Long)session.getAttribute("userid")));
 		/*HashMap<Long, String> hm = new HashMap<Long, String>();
 		for(Department dpt : departmentService.getAllDepartmentsDetails())

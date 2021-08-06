@@ -21,7 +21,7 @@ public class LoginController {
 	public ModelAndView openLoginPage()
 	{
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("WEB-INF/login.jsp");
+		mav.setViewName("login.jsp");
 		return mav;
 	}
 	@RequestMapping(value = "loginCheck",method = RequestMethod.POST)
@@ -34,7 +34,7 @@ public class LoginController {
 		if(employeeResult==null)
 		{
 			mav.addObject("msg", "Invalid username or password");
-			mav.setViewName("WEB-INF/index.jsp");
+			mav.setViewName("index.jsp");
 			return mav;
 		}
 		login.setRole(employeeResult);
@@ -53,16 +53,26 @@ public class LoginController {
 		return mav;
 	}
 	@RequestMapping(value = "adminDashboard",method = RequestMethod.GET)
-	public ModelAndView adminDashboard()
+	public ModelAndView adminDashboard(HttpSession session)
 	{
 		ModelAndView mav = new ModelAndView();
+		if(!session.getAttribute("role").equals("admin"))
+		{
+			mav.setViewName("WEB-INF/employeeHome.jsp");
+			return mav;
+		}
 		mav.setViewName("WEB-INF/adminHome.jsp");
 		return mav;
 	}
 	@RequestMapping(value = "employeeDashboard",method = RequestMethod.GET)
-	public ModelAndView employeeDashboard()
+	public ModelAndView employeeDashboard(HttpSession session)
 	{
 		ModelAndView mav = new ModelAndView();
+		if(!session.getAttribute("role").equals("role"))
+		{
+			mav.setViewName("WEB-INF/adminHome.jsp");
+			return mav;
+		}
 		mav.setViewName("WEB-INF/employeeHome.jsp");
 		return mav;
 	}
@@ -70,7 +80,7 @@ public class LoginController {
 	public ModelAndView logOut()
 	{
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("WEB-INF/index.jsp");
+		mav.setViewName("index.jsp");
 		return mav;
 	}
 }
