@@ -31,7 +31,7 @@ create table statusreport(
 complianceid int(10) not null,
 statusrptid int(10) not null primary key auto_increment,
 empid int(10) not null,
-comments varchar(15),
+comments varchar(15) not null,
 createdate date default current_date,
 department_id int(10),
 foreign key (complianceid) references compliance(complianceid),

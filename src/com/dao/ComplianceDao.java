@@ -35,4 +35,11 @@ public class ComplianceDao
 		Query qry = manager.createQuery("select c from Compliance c");
 		return qry.getResultList();
 	}
+	public List<Compliance> getDepartmentCompliancesDetails(long department_id)
+	{
+		EntityManager manager = emf.createEntityManager();
+		Query qry = manager.createQuery("select c from Compliance c where c.department_id=:department_id");
+		qry.setParameter("department_id", department_id);
+		return qry.getResultList();
+	}
 }

@@ -30,7 +30,7 @@ public class EmployeeController
 	{
 		ModelAndView mav = new ModelAndView();
 		session.setAttribute("allDepartmentsDetails", departmentService.getAllDepartmentsDetails());
-		mav.setViewName("addEmployeeDetails.jsp");
+		mav.setViewName("WEB-INF/addEmployeeDetails.jsp");
 		return mav;
 	}
 	@RequestMapping(value = "storeEmployeeDetails", method = RequestMethod.POST)
@@ -44,7 +44,7 @@ public class EmployeeController
 		emp.setDepartment_id(Long.parseLong(req.getParameter("department_id")));
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("msg", employeeService.storeEmployeeDetails(emp));
-		mav.setViewName("adminHome.jsp");
+		mav.setViewName("WEB-INF/adminHome.jsp");
 		return mav;
 	}
 	@RequestMapping(value = "viewEmployeesDetails")
@@ -58,14 +58,14 @@ public class EmployeeController
 			hm.put(dpt.getDepartment_id(), dpt.getDepartment_nm());
 		}
 		session.setAttribute("allDepartmentsDetails", hm);
-		mav.setViewName("listEmployees.jsp");
+		mav.setViewName("WEB-INF/listEmployees.jsp");
 		return mav;
 	}
 	@RequestMapping(value = "inputEmployeeId")
 	public ModelAndView editEmployeeDetailsPage(HttpSession session)
 	{
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("inputEmployeeId.jsp");
+		mav.setViewName("WEB-INF/inputEmployeeId.jsp");
 		return mav;
 	}
 	@RequestMapping(value = "submitEmployeeId", method = RequestMethod.POST)
@@ -74,7 +74,7 @@ public class EmployeeController
 		ModelAndView mav = new ModelAndView();
 		session.setAttribute("employeeDetails", employeeService.getEmployeeDetails(Long.parseLong(req.getParameter("empid"))));
 		session.setAttribute("allDepartmentsDetails", departmentService.getAllDepartmentsDetails());
-		mav.setViewName("editEmployeeDetails.jsp");
+		mav.setViewName("WEB-INF/editEmployeeDetails.jsp");
 		return mav;
 	}
 	@RequestMapping(value = "editEmployeeDetails", method = RequestMethod.POST)
@@ -89,14 +89,14 @@ public class EmployeeController
 		emp.setDepartment_id(Long.parseLong(req.getParameter("department_id")));
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("msg", employeeService.updateEmployeeDetails(emp));
-		mav.setViewName("adminHome.jsp");
+		mav.setViewName("WEB-INF/adminHome.jsp");
 		return mav;
 	}
 	@RequestMapping(value = "deleteEmployeeDetails")
 	public ModelAndView deleteEmployeeDetailsPage(HttpServletRequest req, HttpSession session)
 	{
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("deleteEmployeeDetails.jsp");
+		mav.setViewName("WEB-INF/deleteEmployeeDetails.jsp");
 		return mav;
 	}
 	@RequestMapping(value = "removeEmployeeDetails", method = RequestMethod.POST)
@@ -104,7 +104,7 @@ public class EmployeeController
 	{
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("msg", employeeService.deleteEmployeeDetails(Long.parseLong(req.getParameter("empid"))));
-		mav.setViewName("adminHome.jsp");
+		mav.setViewName("WEB-INF/adminHome.jsp");
 		return mav;
 	}
 }

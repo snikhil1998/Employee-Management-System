@@ -22,4 +22,8 @@ public class ComplianceService
 	{
 		return complianceDao.getAllCompliancesDetails();
 	}
+	public List<Compliance> getDepartmentCompliancesDetails(long department_id)
+	{
+		return complianceDao.getDepartmentCompliancesDetails(department_id);
+	}
 }

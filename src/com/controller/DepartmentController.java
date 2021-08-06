@@ -22,7 +22,7 @@ public class DepartmentController
 	public ModelAndView addDepartmentDetailsPage()
 	{
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("createDepartment.jsp");
+		mav.setViewName("WEB-INF/createDepartment.jsp");
 		return mav;
 	}
 	@RequestMapping(value = "addDepartmentDetails", method = RequestMethod.POST)
@@ -32,7 +32,7 @@ public class DepartmentController
 		dpt.setDepartment_nm(req.getParameter("department_nm"));
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("msg", departmentService.storeDepartmentDetails(dpt));
-		mav.setViewName("adminHome.jsp");
+		mav.setViewName("WEB-INF/adminHome.jsp");
 		return mav;
 	}
 	@RequestMapping(value = "viewDepartmentsDetails", method = RequestMethod.GET)
@@ -40,7 +40,7 @@ public class DepartmentController
 	{
 		ModelAndView mav = new ModelAndView();
 		session.setAttribute("allDepartmentsDetails", departmentService.getAllDepartmentsDetails());
-		mav.setViewName("listDepartments.jsp");
+		mav.setViewName("WEB-INF/listDepartments.jsp");
 		return mav;
 	}
 }

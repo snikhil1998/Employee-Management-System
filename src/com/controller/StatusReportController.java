@@ -32,7 +32,7 @@ public class StatusReportController
 			hm.put(dpt.getDepartment_id(), dpt.getDepartment_nm());
 		}
 		session.setAttribute("allDepartmentsDetails", hm);
-		mav.setViewName("listStatusReports.jsp");
+		mav.setViewName("WEB-INF/listStatusReports.jsp");
 		return mav;
 	}
 }
