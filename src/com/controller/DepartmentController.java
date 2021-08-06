@@ -23,6 +23,11 @@ public class DepartmentController
 	{
 
 		ModelAndView mav = new ModelAndView();
+		if(session.getAttribute("role")==null)
+		{
+			mav.setViewName("index.jsp");
+			return mav;
+		}
 		if(!session.getAttribute("role").equals("admin"))
 		{
 			mav.setViewName("WEB-INF/employeeHome.jsp");
@@ -45,6 +50,11 @@ public class DepartmentController
 	public ModelAndView viewAllDepartmentsDetails(HttpSession session)
 	{
 		ModelAndView mav = new ModelAndView();
+		if(session.getAttribute("role")==null)
+		{
+			mav.setViewName("index.jsp");
+			return mav;
+		}
 		if(!session.getAttribute("role").equals("admin"))
 		{
 			mav.setViewName("WEB-INF/employeeHome.jsp");

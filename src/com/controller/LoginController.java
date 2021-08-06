@@ -38,24 +38,21 @@ public class LoginController {
 			return mav;
 		}
 		login.setRole(employeeResult);
-		/*if(login.getRole().equals("admin"))
-		{
-			mav.setViewName("WEB-INF/adminHome.jsp");
-		}
-		else
-		{
-			session.setAttribute("user", login.getUserid());
-			mav.setViewName("employeeHome.jsp");
-		}*/
 		session.setAttribute("userid", login.getUserid());
 		session.setAttribute("role", login.getRole());
 		mav.setViewName(login.getRole().equals("admin")?"WEB-INF/adminHome.jsp":"WEB-INF/employeeHome.jsp");
+//		session.setMaxInactiveInterval(15*60);
 		return mav;
 	}
 	@RequestMapping(value = "adminDashboard",method = RequestMethod.GET)
 	public ModelAndView adminDashboard(HttpSession session)
 	{
 		ModelAndView mav = new ModelAndView();
+		if(session.getAttribute("role")==null)
+		{
+			mav.setViewName("index.jsp");
+			return mav;
+		}
 		if(!session.getAttribute("role").equals("admin"))
 		{
 			mav.setViewName("WEB-INF/employeeHome.jsp");
@@ -68,7 +65,12 @@ public class LoginController {
 	public ModelAndView employeeDashboard(HttpSession session)
 	{
 		ModelAndView mav = new ModelAndView();
-		if(!session.getAttribute("role").equals("role"))
+		if(session.getAttribute("role")==null)
+		{
+			mav.setViewName("index.jsp");
+			return mav;
+		}
+		if(!session.getAttribute("role").equals("user"))
 		{
 			mav.setViewName("WEB-INF/adminHome.jsp");
 			return mav;
@@ -77,8 +79,9 @@ public class LoginController {
 		return mav;
 	}
 	@RequestMapping(value = "logout",method = RequestMethod.GET)
-	public ModelAndView logOut()
+	public ModelAndView logOut(HttpSession session)
 	{
+		session.invalidate();
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("index.jsp");
 		return mav;

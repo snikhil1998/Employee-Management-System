@@ -29,6 +29,11 @@ public class ComplianceController
 	public ModelAndView createCompliancePage(HttpSession session)
 	{
 		ModelAndView mav = new ModelAndView();
+		if(session.getAttribute("role")==null)
+		{
+			mav.setViewName("index.jsp");
+			return mav;
+		}
 		if(!session.getAttribute("role").equals("admin"))
 		{
 			mav.setViewName("WEB-INF/employeeHome.jsp");
@@ -55,6 +60,11 @@ public class ComplianceController
 	public ModelAndView viewAllCompliancesDetails(HttpSession session)
 	{
 		ModelAndView mav = new ModelAndView();
+		if(session.getAttribute("role")==null)
+		{
+			mav.setViewName("index.jsp");
+			return mav;
+		}
 		if(!session.getAttribute("role").equals("admin"))
 		{
 			mav.setViewName("WEB-INF/employeeHome.jsp");
@@ -75,6 +85,11 @@ public class ComplianceController
 	{
 
 		ModelAndView mav = new ModelAndView();
+		if(session.getAttribute("role")==null)
+		{
+			mav.setViewName("index.jsp");
+			return mav;
+		}
 		if(!session.getAttribute("role").equals("user"))
 		{
 			mav.setViewName("WEB-INF/adminHome.jsp");

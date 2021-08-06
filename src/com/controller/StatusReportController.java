@@ -25,6 +25,11 @@ public class StatusReportController
 	public ModelAndView viewAllStatusReportsDetails(HttpSession session)
 	{
 		ModelAndView mav = new ModelAndView();
+		if(session.getAttribute("role")==null)
+		{
+			mav.setViewName("index.jsp");
+			return mav;
+		}
 		session.setAttribute("allStatusReportsDetails", statusreportService.getAllStatusReportsDetails());
 		HashMap<Long, String> hm = new HashMap<Long, String>();
 		for(Department dpt : departmentService.getAllDepartmentsDetails())
