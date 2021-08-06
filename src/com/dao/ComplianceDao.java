@@ -1,9 +1,12 @@
 package com.dao;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +20,17 @@ public class ComplianceDao
 	@Autowired
 	EntityManagerFactory emf;
 	
-	public List<Compliance> getCompliancesList()
+	public boolean storeComplianceInformation(Compliance c)
+	{
+		EntityManager manager = emf.createEntityManager();
+		EntityTransaction tran = manager.getTransaction();
+		c.setCreatedate(Date.valueOf(LocalDate.now()));
+		tran.begin();
+		manager.persist(c);
+		tran.commit();
+		return manager.find(Compliance.class, c.getComplianceid())!=null;
+	}
+	public List<Compliance> getAllCompliancesDetails()
 	{
 		EntityManager manager = emf.createEntityManager();
 		Query qry = manager.createQuery("select c from Compliance c");
