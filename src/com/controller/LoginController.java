@@ -3,6 +3,9 @@ package com.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,77 +16,129 @@ import com.bean.Login;
 import com.service.LoginService;
 
 @Controller
-public class LoginController {
+public class LoginController
+{
 	@Autowired
 	LoginService loginService;
 	
+	private static Logger logger = Logger.getLogger(LoginController.class);
+	
 	@RequestMapping(value="login", method=RequestMethod.GET)
-	public ModelAndView openLoginPage() throws Exception
+	public ModelAndView openLoginPage()
 	{
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("login.jsp");
+		try
+		{
+			mav.setViewName("login.jsp");
+		}
+		catch(Exception e)
+		{
+			PropertyConfigurator.configure(getClass().getProtectionDomain().getCodeSource().getLocation().getPath() + "log4j.properties");
+			logger = Logger.getLogger(getClass());
+			logger.error("Error occurred. Please check logs.", e);
+			mav.setViewName("error.jsp");
+		}
 		return mav;
 	}
 	@RequestMapping(value = "loginCheck",method = RequestMethod.POST)
-	public ModelAndView loginRedirect(HttpServletRequest req, Login login, HttpSession session) throws Exception
+	public ModelAndView loginRedirect(HttpServletRequest req, Login login, HttpSession session)
 	{
-		login.setUserid(Long.parseLong(req.getParameter("userid")));
-		login.setPassword(req.getParameter("password"));
-		String employeeResult = loginService.checkEmployeeUser(login);
 		ModelAndView mav = new ModelAndView();
-		if(employeeResult==null)
+		try
 		{
-			mav.addObject("msg", "Invalid username or password");
-			mav.setViewName("index.jsp");
-			return mav;
+			login.setUserid(Long.parseLong(req.getParameter("userid")));
+			login.setPassword(req.getParameter("password"));
+			String employeeResult = loginService.checkEmployeeUser(login);
+			if(employeeResult==null)
+			{
+				mav.addObject("msg", "Invalid username or password");
+				mav.setViewName("index.jsp");
+				return mav;
+			}
+			login.setRole(employeeResult);
+			session.setAttribute("userid", login.getUserid());
+			session.setAttribute("role", login.getRole());
+			mav.setViewName(login.getRole().equals("admin")?"WEB-INF/adminHome.jsp":"WEB-INF/employeeHome.jsp");
 		}
-		login.setRole(employeeResult);
-		session.setAttribute("userid", login.getUserid());
-		session.setAttribute("role", login.getRole());
-		mav.setViewName(login.getRole().equals("admin")?"WEB-INF/adminHome.jsp":"WEB-INF/employeeHome.jsp");
-//		session.setMaxInactiveInterval(15*60);
+		catch(Exception e)
+		{
+			PropertyConfigurator.configure(getClass().getProtectionDomain().getCodeSource().getLocation().getPath() + "log4j.properties");
+			logger = Logger.getLogger(getClass());
+			logger.error("Error occurred. Please check logs.", e);
+			mav.setViewName("error.jsp");
+		}
 		return mav;
 	}
 	@RequestMapping(value = "adminDashboard",method = RequestMethod.GET)
-	public ModelAndView adminDashboard(HttpSession session) throws Exception
+	public ModelAndView adminDashboard(HttpSession session)
 	{
 		ModelAndView mav = new ModelAndView();
-		if(session.getAttribute("role")==null)
+		try
 		{
-			mav.setViewName("index.jsp");
-			return mav;
+			if(session.getAttribute("role")==null)
+			{
+				mav.setViewName("index.jsp");
+				return mav;
+			}
+			if(!session.getAttribute("role").equals("admin"))
+			{
+				mav.setViewName("WEB-INF/employeeHome.jsp");
+				return mav;
+			}
+			mav.setViewName("WEB-INF/adminHome.jsp");
 		}
-		if(!session.getAttribute("role").equals("admin"))
+		catch(Exception e)
 		{
-			mav.setViewName("WEB-INF/employeeHome.jsp");
-			return mav;
+			PropertyConfigurator.configure(getClass().getProtectionDomain().getCodeSource().getLocation().getPath() + "log4j.properties");
+			logger = Logger.getLogger(getClass());
+			logger.error("Error occurred. Please check logs.", e);
+			mav.setViewName("error.jsp");
 		}
-		mav.setViewName("WEB-INF/adminHome.jsp");
 		return mav;
 	}
 	@RequestMapping(value = "employeeDashboard",method = RequestMethod.GET)
-	public ModelAndView employeeDashboard(HttpSession session) throws Exception
+	public ModelAndView employeeDashboard(HttpSession session)
 	{
 		ModelAndView mav = new ModelAndView();
-		if(session.getAttribute("role")==null)
+		try
 		{
-			mav.setViewName("index.jsp");
-			return mav;
+			if(session.getAttribute("role")==null)
+			{
+				mav.setViewName("index.jsp");
+				return mav;
+			}
+			if(!session.getAttribute("role").equals("user"))
+			{
+				mav.setViewName("WEB-INF/adminHome.jsp");
+				return mav;
+			}
+			mav.setViewName("WEB-INF/employeeHome.jsp");
 		}
-		if(!session.getAttribute("role").equals("user"))
+		catch(Exception e)
 		{
-			mav.setViewName("WEB-INF/adminHome.jsp");
-			return mav;
+			PropertyConfigurator.configure(getClass().getProtectionDomain().getCodeSource().getLocation().getPath() + "log4j.properties");
+			logger = Logger.getLogger(getClass());
+			logger.error("Error occurred. Please check logs.", e);
+			mav.setViewName("error.jsp");
 		}
-		mav.setViewName("WEB-INF/employeeHome.jsp");
 		return mav;
 	}
 	@RequestMapping(value = "logout",method = RequestMethod.GET)
-	public ModelAndView logOut(HttpSession session) throws Exception
+	public ModelAndView logOut(HttpSession session)
 	{
-		session.invalidate();
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("index.jsp");
+		try
+		{
+			session.invalidate();
+			mav.setViewName("index.jsp");
+		}
+		catch(Exception e)
+		{
+			PropertyConfigurator.configure(getClass().getProtectionDomain().getCodeSource().getLocation().getPath() + "log4j.properties");
+			logger = Logger.getLogger(getClass());
+			logger.error("Error occurred. Please check logs.", e);
+			mav.setViewName("error.jsp");
+		}
 		return mav;
 	}
 }

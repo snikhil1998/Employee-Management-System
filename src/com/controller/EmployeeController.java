@@ -6,6 +6,8 @@ import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,127 +26,209 @@ public class EmployeeController
 	DepartmentService departmentService;
 	@Autowired
 	EmployeeService employeeService;
+	
+	private static Logger logger = Logger.getLogger(EmployeeController.class);
 		
 	@RequestMapping(value = "addEmployeeDetails", method = RequestMethod.GET)
-	public ModelAndView addEmployeeDetailsPage(HttpSession session) throws Exception
+	public ModelAndView addEmployeeDetailsPage(HttpSession session)
 	{
 		ModelAndView mav = new ModelAndView();
-		if(session.getAttribute("role")==null)
+		try
 		{
-			mav.setViewName("index.jsp");
-			return mav;
+			if(session.getAttribute("role")==null)
+			{
+				mav.setViewName("index.jsp");
+				return mav;
+			}
+			if(!session.getAttribute("role").equals("admin"))
+			{
+				mav.setViewName("WEB-INF/employeeHome.jsp");
+				return mav;
+			}
+			session.setAttribute("allDepartmentsDetails", departmentService.getAllDepartmentsDetails());
+			mav.setViewName("WEB-INF/addEmployeeDetails.jsp");
 		}
-		if(!session.getAttribute("role").equals("admin"))
+		catch(Exception e)
 		{
-			mav.setViewName("WEB-INF/employeeHome.jsp");
-			return mav;
+			PropertyConfigurator.configure(getClass().getProtectionDomain().getCodeSource().getLocation().getPath() + "log4j.properties");
+			logger = Logger.getLogger(getClass());
+			logger.error("Error occurred. Please check logs.", e);
+			mav.setViewName("error.jsp");
 		}
-		session.setAttribute("allDepartmentsDetails", departmentService.getAllDepartmentsDetails());
-		mav.setViewName("WEB-INF/addEmployeeDetails.jsp");
 		return mav;
 	}
 	@RequestMapping(value = "storeEmployeeDetails", method = RequestMethod.POST)
-	public ModelAndView addEmployeeDetails(HttpServletRequest req, HttpSession session) throws Exception
+	public ModelAndView addEmployeeDetails(HttpServletRequest req, HttpSession session)
 	{
-		Employee emp = new Employee();
-		emp.setFirstname(req.getParameter("firstname"));
-		emp.setLastname(req.getParameter("lastname"));
-		emp.setDob(Date.valueOf(req.getParameter("dob")));
-		emp.setEmail(req.getParameter("email"));
-		emp.setDepartment_id(Long.parseLong(req.getParameter("department_id")));
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("msg", employeeService.storeEmployeeDetails(emp));
-		mav.setViewName("WEB-INF/adminHome.jsp");
+		try
+		{
+			Employee emp = new Employee();
+			emp.setFirstname(req.getParameter("firstname"));
+			emp.setLastname(req.getParameter("lastname"));
+			emp.setDob(Date.valueOf(req.getParameter("dob")));
+			emp.setEmail(req.getParameter("email"));
+			emp.setDepartment_id(Long.parseLong(req.getParameter("department_id")));
+			mav.addObject("msg", employeeService.storeEmployeeDetails(emp));
+			mav.setViewName("WEB-INF/adminHome.jsp");
+		}
+		catch(Exception e)
+		{
+			PropertyConfigurator.configure(getClass().getProtectionDomain().getCodeSource().getLocation().getPath() + "log4j.properties");
+			logger = Logger.getLogger(getClass());
+			logger.error("Error occurred. Please check logs.", e);
+			mav.setViewName("error.jsp");
+		}
 		return mav;
 	}
 	@RequestMapping(value = "viewEmployeesDetails")
-	public ModelAndView viewAllEmployeesDetails(HttpSession session) throws Exception
+	public ModelAndView viewAllEmployeesDetails(HttpSession session)
 	{
 		ModelAndView mav = new ModelAndView();
-		if(session.getAttribute("role")==null)
+		try
 		{
-			mav.setViewName("index.jsp");
-			return mav;
+			if(session.getAttribute("role")==null)
+			{
+				mav.setViewName("index.jsp");
+				return mav;
+			}
+			if(!session.getAttribute("role").equals("admin"))
+			{
+				mav.setViewName("WEB-INF/employeeHome.jsp");
+				return mav;
+			}
+			session.setAttribute("allEmployeesDetails", employeeService.getAllEmployeesDetails());
+			HashMap<Long, String> hm = new HashMap<Long, String>();
+			for(Department dpt : departmentService.getAllDepartmentsDetails())
+			{
+				hm.put(dpt.getDepartment_id(), dpt.getDepartment_nm());
+			}
+			session.setAttribute("allDepartmentsDetails", hm);
+			mav.setViewName("WEB-INF/listEmployees.jsp");
 		}
-		if(!session.getAttribute("role").equals("admin"))
+		catch(Exception e)
 		{
-			mav.setViewName("WEB-INF/employeeHome.jsp");
-			return mav;
+			PropertyConfigurator.configure(getClass().getProtectionDomain().getCodeSource().getLocation().getPath() + "log4j.properties");
+			logger = Logger.getLogger(getClass());
+			logger.error("Error occurred. Please check logs.", e);
+			mav.setViewName("error.jsp");
 		}
-		session.setAttribute("allEmployeesDetails", employeeService.getAllEmployeesDetails());
-		HashMap<Long, String> hm = new HashMap<Long, String>();
-		for(Department dpt : departmentService.getAllDepartmentsDetails())
-		{
-			hm.put(dpt.getDepartment_id(), dpt.getDepartment_nm());
-		}
-		session.setAttribute("allDepartmentsDetails", hm);
-		mav.setViewName("WEB-INF/listEmployees.jsp");
 		return mav;
 	}
 	@RequestMapping(value = "inputEmployeeId")
-	public ModelAndView editEmployeeDetailsPage(HttpSession session) throws Exception
+	public ModelAndView editEmployeeDetailsPage(HttpSession session)
 	{
 		ModelAndView mav = new ModelAndView();
-		if(session.getAttribute("role")==null)
+		try
 		{
-			mav.setViewName("index.jsp");
-			return mav;
+			if(session.getAttribute("role")==null)
+			{
+				mav.setViewName("index.jsp");
+				return mav;
+			}
+			if(!session.getAttribute("role").equals("admin"))
+			{
+				mav.setViewName("WEB-INF/employeeHome.jsp");
+				return mav;
+			}
+			mav.setViewName("WEB-INF/inputEmployeeId.jsp");
 		}
-		if(!session.getAttribute("role").equals("admin"))
+		catch(Exception e)
 		{
-			mav.setViewName("WEB-INF/employeeHome.jsp");
-			return mav;
+			PropertyConfigurator.configure(getClass().getProtectionDomain().getCodeSource().getLocation().getPath() + "log4j.properties");
+			logger = Logger.getLogger(getClass());
+			logger.error("Error occurred. Please check logs.", e);
+			mav.setViewName("error.jsp");
 		}
-		mav.setViewName("WEB-INF/inputEmployeeId.jsp");
 		return mav;
 	}
 	@RequestMapping(value = "submitEmployeeId", method = RequestMethod.POST)
-	public ModelAndView loadEmployeeDetailsInEditPage(HttpServletRequest req, HttpSession session) throws Exception
+	public ModelAndView loadEmployeeDetailsInEditPage(HttpServletRequest req, HttpSession session)
 	{
 		ModelAndView mav = new ModelAndView();
-		session.setAttribute("employeeDetails", employeeService.getEmployeeDetails(Long.parseLong(req.getParameter("empid"))));
-		session.setAttribute("allDepartmentsDetails", departmentService.getAllDepartmentsDetails());
-		mav.setViewName("WEB-INF/editEmployeeDetails.jsp");
+		try
+		{
+			session.setAttribute("employeeDetails", employeeService.getEmployeeDetails(Long.parseLong(req.getParameter("empid"))));
+			session.setAttribute("allDepartmentsDetails", departmentService.getAllDepartmentsDetails());
+			mav.setViewName("WEB-INF/editEmployeeDetails.jsp");
+		}
+		catch(Exception e)
+		{
+			PropertyConfigurator.configure(getClass().getProtectionDomain().getCodeSource().getLocation().getPath() + "log4j.properties");
+			logger = Logger.getLogger(getClass());
+			logger.error("Error occurred. Please check logs.", e);
+			mav.setViewName("error.jsp");
+		}
 		return mav;
 	}
 	@RequestMapping(value = "editEmployeeDetails", method = RequestMethod.POST)
-	public ModelAndView editEmployeeDetails(HttpServletRequest req, HttpSession session) throws Exception
+	public ModelAndView editEmployeeDetails(HttpServletRequest req, HttpSession session)
 	{
-		Employee emp = new Employee();
-		emp.setEmpid(Long.parseLong(req.getParameter("empid")));
-		emp.setFirstname(req.getParameter("firstname"));
-		emp.setLastname(req.getParameter("lastname"));
-		emp.setDob(Date.valueOf(req.getParameter("dob")));
-		emp.setEmail(req.getParameter("email"));
-		emp.setDepartment_id(Long.parseLong(req.getParameter("department_id")));
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("msg", employeeService.updateEmployeeDetails(emp));
-		mav.setViewName("WEB-INF/adminHome.jsp");
+		try
+		{
+			Employee emp = new Employee();
+			emp.setEmpid(Long.parseLong(req.getParameter("empid")));
+			emp.setFirstname(req.getParameter("firstname"));
+			emp.setLastname(req.getParameter("lastname"));
+			emp.setDob(Date.valueOf(req.getParameter("dob")));
+			emp.setEmail(req.getParameter("email"));
+			emp.setDepartment_id(Long.parseLong(req.getParameter("department_id")));
+			mav.addObject("msg", employeeService.updateEmployeeDetails(emp));
+			mav.setViewName("WEB-INF/adminHome.jsp");
+		}
+		catch(Exception e)
+		{
+			PropertyConfigurator.configure(getClass().getProtectionDomain().getCodeSource().getLocation().getPath() + "log4j.properties");
+			logger = Logger.getLogger(getClass());
+			logger.error("Error occurred. Please check logs.", e);
+			mav.setViewName("error.jsp");
+		}
 		return mav;
 	}
 	@RequestMapping(value = "deleteEmployeeDetails")
-	public ModelAndView deleteEmployeeDetailsPage(HttpServletRequest req, HttpSession session) throws Exception
+	public ModelAndView deleteEmployeeDetailsPage(HttpServletRequest req, HttpSession session)
 	{
 		ModelAndView mav = new ModelAndView();
-		if(session.getAttribute("role")==null)
+		try
 		{
-			mav.setViewName("index.jsp");
-			return mav;
+			if(session.getAttribute("role")==null)
+			{
+				mav.setViewName("index.jsp");
+				return mav;
+			}
+			if(!session.getAttribute("role").equals("admin"))
+			{
+				mav.setViewName("WEB-INF/employeeHome.jsp");
+				return mav;
+			}
+			mav.setViewName("WEB-INF/deleteEmployeeDetails.jsp");
 		}
-		if(!session.getAttribute("role").equals("admin"))
+		catch(Exception e)
 		{
-			mav.setViewName("WEB-INF/employeeHome.jsp");
-			return mav;
+			PropertyConfigurator.configure(getClass().getProtectionDomain().getCodeSource().getLocation().getPath() + "log4j.properties");
+			logger = Logger.getLogger(getClass());
+			logger.error("Error occurred. Please check logs.", e);
+			mav.setViewName("error.jsp");
 		}
-		mav.setViewName("WEB-INF/deleteEmployeeDetails.jsp");
 		return mav;
 	}
 	@RequestMapping(value = "removeEmployeeDetails", method = RequestMethod.POST)
-	public ModelAndView deleteEmployeeDetails(HttpServletRequest req, HttpSession session) throws Exception
+	public ModelAndView deleteEmployeeDetails(HttpServletRequest req, HttpSession session)
 	{
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("msg", employeeService.deleteEmployeeDetails(Long.parseLong(req.getParameter("empid"))));
-		mav.setViewName("WEB-INF/adminHome.jsp");
+		try
+		{
+			mav.addObject("msg", employeeService.deleteEmployeeDetails(Long.parseLong(req.getParameter("empid"))));
+			mav.setViewName("WEB-INF/adminHome.jsp");
+		}
+		catch(Exception e)
+		{
+			PropertyConfigurator.configure(getClass().getProtectionDomain().getCodeSource().getLocation().getPath() + "log4j.properties");
+			logger = Logger.getLogger(getClass());
+			logger.error("Error occurred. Please check logs.", e);
+			mav.setViewName("error.jsp");
+		}
 		return mav;
 	}
 }
