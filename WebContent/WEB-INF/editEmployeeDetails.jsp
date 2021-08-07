@@ -39,7 +39,7 @@ if(session.getAttribute("userid")==null || session.getAttribute("role")==null)
 			<form action="editEmployeeDetails.spring" style="position: relative; top: 20px;" method="post">
 				<div class="form-group" style="margin: 10px;">
 					<label for="empid">Employee ID</label>
-					<input name="empid" type="text" class="form-control" id="empid" value=${employeeDetails.empid} maxlength="10" required>
+					<input name="empid" type="text" class="form-control" id="empid" value=${employeeDetails.empid} maxlength="10" readonly>
 				</div>
 				<!-- <div class="form-group" style="position: relative; top: 0px"> -->
 				<div class="form-group" style="margin: 10px;">
