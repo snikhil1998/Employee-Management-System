@@ -20,7 +20,7 @@ public class LoginDao
 	@Autowired
 	EntityManagerFactory emf;
 	
-	public static String getSHA512(String input)
+	public static String getSHA512(String input) throws Exception
 	{
 		String toReturn = null;
 		try
@@ -36,7 +36,7 @@ public class LoginDao
 		}
 		return toReturn;
 	}
-	public String checkLoginDetails(Login ll)
+	public String checkLoginDetails(Login ll) throws Exception
 	{
 		EntityManager manager = emf.createEntityManager();
 		Query qry = manager.createQuery("select l from Login l where l.userid=:userid and l.password=:password");
@@ -45,7 +45,7 @@ public class LoginDao
 		List<Login> list = qry.getResultList();
 		return list.size()>0?list.get(0).getRole():null;
 	}
-	public boolean addLoginCredentials(Login ll)
+	public boolean addLoginCredentials(Login ll) throws Exception
 	{
 		EntityManager manager = emf.createEntityManager();
 		EntityTransaction tran = manager.getTransaction();
@@ -55,7 +55,7 @@ public class LoginDao
 		tran.commit();
 		return manager.find(Login.class, ll.getUserid())!=null;
 	}
-	public boolean deleteLoginCredentials(long userid)
+	public boolean deleteLoginCredentials(long userid) throws Exception
 	{
 		EntityManager manager = emf.createEntityManager();
 		EntityTransaction tran = manager.getTransaction();

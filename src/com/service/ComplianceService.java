@@ -16,19 +16,19 @@ public class ComplianceService
 	@Autowired
 	ComplianceDao complianceDao;
 	
-	public String storeComplianceInformation(Compliance c)
+	public String storeComplianceInformation(Compliance c) throws Exception
 	{
 		return complianceDao.storeComplianceInformation(c)?"Regulation created successfully":"Unable to create Regulation";
 	}
-	public List<Compliance> getAllCompliancesDetails()
+	public List<Compliance> getAllCompliancesDetails() throws Exception
 	{
 		return complianceDao.getAllCompliancesDetails();
 	}
-	public List<Compliance> getEmployeeRemainingCompliancesDetails(long empid)
+	public List<Compliance> getEmployeeRemainingCompliancesDetails(long empid) throws Exception
 	{
 		return complianceDao.getEmployeeRemainingCompliancesDetails(empid);
 	}
-	public HashMap<StatusReport, Compliance> getEmployeeCompliancesDetails(long empid)
+	public HashMap<StatusReport, Compliance> getEmployeeCompliancesDetails(long empid) throws Exception
 	{
 		return complianceDao.getEmployeeCompliancesDetails(empid);
 	}

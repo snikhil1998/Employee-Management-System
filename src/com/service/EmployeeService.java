@@ -14,23 +14,23 @@ public class EmployeeService
 	@Autowired
 	EmployeeDao employeeDao;
 	
-	public String storeEmployeeDetails(Employee emp)
+	public String storeEmployeeDetails(Employee emp) throws Exception
 	{
 		return employeeDao.storeEmployeeDetails(emp)?"Employee details added successfully":"Unable to add employee details";
 	}
-	public List<Employee> getAllEmployeesDetails()
+	public List<Employee> getAllEmployeesDetails() throws Exception
 	{
 		return employeeDao.getAllEmployeesDetails();
 	}
-	public Employee getEmployeeDetails(long empid)
+	public Employee getEmployeeDetails(long empid) throws Exception
 	{
 		return employeeDao.getEmployeeDetails(empid);
 	}
-	public String updateEmployeeDetails(Employee emp)
+	public String updateEmployeeDetails(Employee emp) throws Exception
 	{
 		return employeeDao.updateEmployeeDetails(emp)?"Employee details updated successfully":"Unable to update employee details";
 	}
-	public String deleteEmployeeDetails(long empid)
+	public String deleteEmployeeDetails(long empid) throws Exception
 	{
 		return employeeDao.deleteEmployeeDetails(empid)?"Employee details deleted successfully":"Unable to delete employee details";
 	}

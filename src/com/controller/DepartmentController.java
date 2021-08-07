@@ -19,7 +19,7 @@ public class DepartmentController
 	DepartmentService departmentService;
 	
 	@RequestMapping(value = "createDepartment", method = RequestMethod.GET)
-	public ModelAndView addDepartmentDetailsPage(HttpSession session)
+	public ModelAndView addDepartmentDetailsPage(HttpSession session) throws Exception
 	{
 
 		ModelAndView mav = new ModelAndView();
@@ -37,7 +37,7 @@ public class DepartmentController
 		return mav;
 	}
 	@RequestMapping(value = "addDepartmentDetails", method = RequestMethod.POST)
-	public ModelAndView addDepartmentDetails(HttpServletRequest req, HttpSession session)
+	public ModelAndView addDepartmentDetails(HttpServletRequest req, HttpSession session) throws Exception
 	{
 		Department dpt = new Department();
 		dpt.setDepartment_nm(req.getParameter("department_nm"));
@@ -47,7 +47,7 @@ public class DepartmentController
 		return mav;
 	}
 	@RequestMapping(value = "viewDepartmentsDetails", method = RequestMethod.GET)
-	public ModelAndView viewAllDepartmentsDetails(HttpSession session)
+	public ModelAndView viewAllDepartmentsDetails(HttpSession session) throws Exception
 	{
 		ModelAndView mav = new ModelAndView();
 		if(session.getAttribute("role")==null)

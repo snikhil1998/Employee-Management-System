@@ -18,7 +18,7 @@ public class DepartmentDao
 	@Autowired
 	EntityManagerFactory emf;
 	
-	public boolean storeDepartmentDetails(Department dpt)
+	public boolean storeDepartmentDetails(Department dpt) throws Exception
 	{
 		EntityManager manager = emf.createEntityManager();
 		EntityTransaction tran = manager.getTransaction();
@@ -27,7 +27,7 @@ public class DepartmentDao
 		tran.commit();
 		return manager.find(Department.class, dpt.getDepartment_id())!=null;
 	}
-	public List<Department> getAllDepartmentsDetails()
+	public List<Department> getAllDepartmentsDetails() throws Exception
 	{
 		EntityManager manager = emf.createEntityManager();
 		Query qry = manager.createQuery("select d from Department d");

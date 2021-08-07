@@ -11,7 +11,7 @@ public class LoginService {
 	@Autowired
 	LoginDao loginDao;
 	
-	public String checkEmployeeUser(Login login)
+	public String checkEmployeeUser(Login login) throws Exception
 	{
 		return loginDao.checkLoginDetails(login);
 	}

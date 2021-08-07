@@ -27,7 +27,7 @@ public class ComplianceController
 	DepartmentService departmentService;
 	
 	@RequestMapping(value = "createCompliance", method = RequestMethod.GET)
-	public ModelAndView createCompliancePage(HttpSession session)
+	public ModelAndView createCompliancePage(HttpSession session) throws Exception
 	{
 		ModelAndView mav = new ModelAndView();
 		if(session.getAttribute("role")==null)
@@ -45,7 +45,7 @@ public class ComplianceController
 		return mav;
 	}
 	@RequestMapping(value = "storeComplianceInformation", method = RequestMethod.POST)
-	public ModelAndView createCompliance(HttpServletRequest req, HttpSession session)
+	public ModelAndView createCompliance(HttpServletRequest req, HttpSession session) throws Exception
 	{
 		Compliance c = new Compliance();
 		c.setRltype(req.getParameter("rltype"));
@@ -58,7 +58,7 @@ public class ComplianceController
 		return mav;
 	}
 	@RequestMapping(value = "viewCompliancesDetails")
-	public ModelAndView viewAllCompliancesDetails(HttpSession session)
+	public ModelAndView viewAllCompliancesDetails(HttpSession session) throws Exception
 	{
 		ModelAndView mav = new ModelAndView();
 		if(session.getAttribute("role")==null)
@@ -82,7 +82,7 @@ public class ComplianceController
 		return mav;
 	}
 	@RequestMapping(value = "viewAssignedCompliancesDetails")
-	public ModelAndView viewAssignedCompliancesDetails(HttpSession session)
+	public ModelAndView viewAssignedCompliancesDetails(HttpSession session) throws Exception
 	{
 
 		ModelAndView mav = new ModelAndView();
@@ -107,7 +107,7 @@ public class ComplianceController
 		return mav;
 	}
 	@RequestMapping(value = "addComplianceComments", method = RequestMethod.POST)
-	public ModelAndView submitComplianceComments(HttpServletRequest req, HttpSession session)
+	public ModelAndView submitComplianceComments(HttpServletRequest req, HttpSession session) throws Exception
 	{
 		Compliance c = new Compliance();
 		c.setComplianceid(Long.parseLong(req.getParameter("complianceid")));
@@ -126,7 +126,7 @@ public class ComplianceController
 		return mav;
 	}
 	@RequestMapping(value = "viewEmployeeStatusReportsDetails")
-	public ModelAndView viewEmployeeStatusReportsDetails(HttpSession session)
+	public ModelAndView viewEmployeeStatusReportsDetails(HttpSession session) throws Exception
 	{
 		ModelAndView mav = new ModelAndView();
 		if(session.getAttribute("role")==null)
@@ -151,7 +151,7 @@ public class ComplianceController
 		return mav;
 	}
 	@RequestMapping(value = "updateComplianceComments", method = RequestMethod.POST)
-	public ModelAndView viewEmployeeStatusReportsDetails(HttpServletRequest req, HttpSession session)
+	public ModelAndView viewEmployeeStatusReportsDetails(HttpServletRequest req, HttpSession session) throws Exception
 	{
 		Compliance c = new Compliance();
 		StatusReport sr = new StatusReport();

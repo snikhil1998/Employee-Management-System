@@ -20,7 +20,7 @@ public class EmployeeDao {
 	@Autowired
 	LoginDao loginDao;
 	
-	public boolean storeEmployeeDetails(Employee emp)
+	public boolean storeEmployeeDetails(Employee emp) throws Exception
 	{
 		EntityManager manager = emf.createEntityManager();
 		EntityTransaction tran = manager.getTransaction();
@@ -40,18 +40,18 @@ public class EmployeeDao {
 		}
 		return manager.find(Employee.class, emp.getEmpid())!=null;
 	}
-	public List<Employee> getAllEmployeesDetails()
+	public List<Employee> getAllEmployeesDetails() throws Exception
 	{
 		EntityManager manager = emf.createEntityManager();
 		Query qry = manager.createQuery("select e from Employee e");
 		return qry.getResultList();
 	}
-	public Employee getEmployeeDetails(long empid)
+	public Employee getEmployeeDetails(long empid) throws Exception
 	{
 		EntityManager manager = emf.createEntityManager();
 		return manager.find(Employee.class, empid);
 	}
-	public boolean updateEmployeeDetails(Employee emp)
+	public boolean updateEmployeeDetails(Employee emp) throws Exception
 	{
 		EntityManager manager = emf.createEntityManager();
 		EntityTransaction tran = manager.getTransaction();
@@ -60,7 +60,7 @@ public class EmployeeDao {
 		tran.commit();
 		return !(manager.find(Employee.class, emp.getEmpid()).equals(emp));
 	}
-	public boolean deleteEmployeeDetails(long empid)
+	public boolean deleteEmployeeDetails(long empid) throws Exception
 	{
 		boolean loginCredentialsRemoved = loginDao.deleteLoginCredentials(empid);
 		if(!loginCredentialsRemoved)

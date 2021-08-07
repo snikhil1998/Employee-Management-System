@@ -24,7 +24,7 @@ public class ComplianceDao
 	@Autowired
 	StatusReportDao statusreportDao;
 	
-	public boolean storeComplianceInformation(Compliance c)
+	public boolean storeComplianceInformation(Compliance c) throws Exception
 	{
 		EntityManager manager = emf.createEntityManager();
 		EntityTransaction tran = manager.getTransaction();
@@ -33,13 +33,13 @@ public class ComplianceDao
 		tran.commit();
 		return manager.find(Compliance.class, c.getComplianceid())!=null;
 	}
-	public List<Compliance> getAllCompliancesDetails()
+	public List<Compliance> getAllCompliancesDetails() throws Exception
 	{
 		EntityManager manager = emf.createEntityManager();
 		Query qry = manager.createQuery("select c from Compliance c");
 		return qry.getResultList();
 	}
-	public List<Compliance> getEmployeeRemainingCompliancesDetails(long empid)
+	public List<Compliance> getEmployeeRemainingCompliancesDetails(long empid) throws Exception
 	{
 		EntityManager manager = emf.createEntityManager();
 		Query qry = manager.createQuery("select c from Compliance c where c.department_id=:department_id");
@@ -47,18 +47,14 @@ public class ComplianceDao
 		List<Compliance> remainingCompliancesDetails = new ArrayList<Compliance>();
 		for(Compliance c: (List<Compliance>)qry.getResultList())
 		{
-//			if(manager.createQuery("select sr from StatusReport sr where sr.empid=:empid and sr.complianceid=:complianceid").setParameter("empid", empid).setParameter("complianceid", c.getComplianceid()).getResultList()==null)
-			Query statusreport = manager.createQuery("select sr from StatusReport sr where sr.empid=:empid and sr.complianceid=:complianceid");
-			statusreport.setParameter("empid", empid);
-			statusreport.setParameter("complianceid", c.getComplianceid());
-			if(statusreport.getResultList().size()==0)
+			if(manager.createQuery("select sr from StatusReport sr where sr.empid=:empid and sr.complianceid=:complianceid").setParameter("empid", empid).setParameter("complianceid", c.getComplianceid()).getResultList().size()==0)
 			{
 				remainingCompliancesDetails.add(c);
 			}
 		}
 		return remainingCompliancesDetails;
 	}
-	public HashMap<StatusReport, Compliance> getEmployeeCompliancesDetails(long empid)
+	public HashMap<StatusReport, Compliance> getEmployeeCompliancesDetails(long empid) throws Exception
 	{
 		EntityManager manager = emf.createEntityManager();
 		List<StatusReport> employeeStatusReports = statusreportDao.getEmployeeStatusReportsDetails(empid);

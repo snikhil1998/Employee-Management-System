@@ -14,11 +14,11 @@ public class DepartmentService
 	@Autowired
 	DepartmentDao departmentDao;
 	
-	public String storeDepartmentDetails(Department dpt)
+	public String storeDepartmentDetails(Department dpt) throws Exception
 	{
 		return departmentDao.storeDepartmentDetails(dpt)?"Department details added successfully":"Unable to add department details";
 	}
-	public List<Department> getAllDepartmentsDetails()
+	public List<Department> getAllDepartmentsDetails() throws Exception
 	{
 		return departmentDao.getAllDepartmentsDetails();
 	}

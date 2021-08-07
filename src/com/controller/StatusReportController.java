@@ -29,7 +29,7 @@ public class StatusReportController
 	ComplianceService complianceService;
 	
 	@RequestMapping(value = "viewStatusReportsDetails")
-	public ModelAndView viewAllStatusReportsDetails(HttpSession session)
+	public ModelAndView viewAllStatusReportsDetails(HttpSession session) throws Exception
 	{
 		ModelAndView mav = new ModelAndView();
 		if(session.getAttribute("role")==null)
@@ -53,7 +53,7 @@ public class StatusReportController
 		return mav;
 	}
 	@RequestMapping(value = "submitComplianceComments", method = RequestMethod.POST)
-	public ModelAndView submitStatusReport(HttpServletRequest req, HttpSession session)
+	public ModelAndView submitStatusReport(HttpServletRequest req, HttpSession session) throws Exception
 	{
 		/*Compliance c = new Compliance();
 		c.setRltype(req.getParameter("rltype"));
@@ -71,7 +71,7 @@ public class StatusReportController
 		return mav;
 	}
 	@RequestMapping(value = "submitUpdatedComplianceComments", method = RequestMethod.POST)
-	public ModelAndView updateStatusReport(HttpServletRequest req, HttpSession session)
+	public ModelAndView updateStatusReport(HttpServletRequest req, HttpSession session) throws Exception
 	{
 		/*Compliance c = new Compliance();
 		c.setRltype(req.getParameter("rltype"));

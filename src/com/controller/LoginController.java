@@ -18,14 +18,14 @@ public class LoginController {
 	LoginService loginService;
 	
 	@RequestMapping(value="login", method=RequestMethod.GET)
-	public ModelAndView openLoginPage()
+	public ModelAndView openLoginPage() throws Exception
 	{
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("login.jsp");
 		return mav;
 	}
 	@RequestMapping(value = "loginCheck",method = RequestMethod.POST)
-	public ModelAndView loginRedirect(HttpServletRequest req, Login login, HttpSession session)
+	public ModelAndView loginRedirect(HttpServletRequest req, Login login, HttpSession session) throws Exception
 	{
 		login.setUserid(Long.parseLong(req.getParameter("userid")));
 		login.setPassword(req.getParameter("password"));
@@ -45,7 +45,7 @@ public class LoginController {
 		return mav;
 	}
 	@RequestMapping(value = "adminDashboard",method = RequestMethod.GET)
-	public ModelAndView adminDashboard(HttpSession session)
+	public ModelAndView adminDashboard(HttpSession session) throws Exception
 	{
 		ModelAndView mav = new ModelAndView();
 		if(session.getAttribute("role")==null)
@@ -62,7 +62,7 @@ public class LoginController {
 		return mav;
 	}
 	@RequestMapping(value = "employeeDashboard",method = RequestMethod.GET)
-	public ModelAndView employeeDashboard(HttpSession session)
+	public ModelAndView employeeDashboard(HttpSession session) throws Exception
 	{
 		ModelAndView mav = new ModelAndView();
 		if(session.getAttribute("role")==null)
@@ -79,7 +79,7 @@ public class LoginController {
 		return mav;
 	}
 	@RequestMapping(value = "logout",method = RequestMethod.GET)
-	public ModelAndView logOut(HttpSession session)
+	public ModelAndView logOut(HttpSession session) throws Exception
 	{
 		session.invalidate();
 		ModelAndView mav = new ModelAndView();
