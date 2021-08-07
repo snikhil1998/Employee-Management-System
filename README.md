@@ -1,12 +1,12 @@
 # Employee Management System
 
 ## Tools Used
-Java 1.8
-Spring MVC
-MySQL Database
-Eclipse IDE
-Java Persistence API
-Tomcat Server 9.0
+- Java 1.8
+- Spring MVC
+- MySQL Database
+- Eclipse IDE
+- Java Persistence API
+- Tomcat Server 9.0
 
 ## Usage
 - The URL for the project will be
