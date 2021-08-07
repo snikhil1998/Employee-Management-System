@@ -25,7 +25,8 @@ if(session.getAttribute("userid")==null || session.getAttribute("role")==null)
 					form.submit();
 				}
 			}
-			if ( window.history.replaceState )
+			//if ( window.history.replaceState )
+			if(<%request.getSession().getAttribute("role");%> == null)
 			{
 				//window.history.replaceState( null, null, window.location.href );
 				window.history.replaceState( null, null, "${pageContext.request.contextPath}/index.jsp" );

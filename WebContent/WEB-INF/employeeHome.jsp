@@ -17,7 +17,8 @@ if(session.getAttribute("userid")==null || session.getAttribute("role")==null)
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 		<link rel="stylesheet" type="text/css" href="styles.css" />
 		<script>
-			if ( window.history.replaceState )
+			//if ( window.history.replaceState )
+			if(<%request.getSession().getAttribute("role");%> == null)
 			{
 				//window.history.replaceState( null, null, window.location.href );
 				window.history.replaceState( null, null, "${pageContext.request.contextPath}/index.jsp" );

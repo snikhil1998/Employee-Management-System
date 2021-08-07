@@ -17,8 +17,9 @@ if(session.getAttribute("userid")==null || session.getAttribute("role")==null)
 		<title>Assigned Compliances</title>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 		<link rel="stylesheet" type="text/css" href="styles.css" />
-		<script>
-			if ( window.history.replaceState )
+		<script type="text/javascript">
+			//if ( window.history.replaceState )
+			if(<%request.getSession().getAttribute("role");%> == null)
 			{
 				//window.history.replaceState( null, null, window.location.href );
 				window.history.replaceState( null, null, "${pageContext.request.contextPath}/index.jsp" );
@@ -62,24 +63,28 @@ if(session.getAttribute("userid")==null || session.getAttribute("role")==null)
 				</li>
 			</ul>
 			<h2>View All Department Details</h2>
-			<table id="t01">
-				<tr>
-					<th>Compliance ID</th>
-					<th>RL Type</th>
-					<th>Details</th>
-					<th>Date Created</th>
-					<!-- <th>Department</th> -->
-				</tr>
-				<core:forEach items="${sessionScope.allAssignedCompliancesDetails}" var="compliance">
+			<form action="submitComplianceComments.spring" method="post">
+				<table id="t01">
 					<tr>
-						<td>${compliance.complianceid}</td>
-						<td>${compliance.rltype}</td>
-						<td>${compliance.details}</td>
-						<td>${compliance.createdate}</td>
-						<!-- <td>${sessionScope.allDepartmentsDetails.get(compliance.department_id)}</td> -->
+						<th>Compliance ID</th>
+						<th>RL Type</th>
+						<th>Details</th>
+						<th>Date Created</th>
+						<!-- <th>Department</th> -->
+						<th>Comments</th>
 					</tr>
-				</core:forEach>
-			</table>
+					<core:forEach items="${sessionScope.allAssignedCompliancesDetails}" var="compliance">
+						<tr>
+							<td>${compliance.complianceid}</td>
+							<td>${compliance.rltype}</td>
+							<td>${compliance.details}</td>
+							<td>${compliance.createdate}</td>
+							<!-- <td>${sessionScope.allDepartmentsDetails.get(compliance.department_id)}</td> -->
+							<td><input name="email" type="email" class="form-control" id="email"></td>
+						</tr>
+					</core:forEach>
+				</table>
+			</form>
 		</div>
 	</body>
 </html>
