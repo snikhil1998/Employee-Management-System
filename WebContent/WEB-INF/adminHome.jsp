@@ -51,7 +51,7 @@ if(session.getAttribute("userid")==null || session.getAttribute("role")==null)
 				<a class="nav-link" href="deleteEmployeeDetails.spring">Delete Employee Details</a>
 			</li>
 		</ul>
-		<h3 style="position: relative; left: 10px; top: 20px;">Compliances</h3>
+		<h3 style="position: relative; left: 10px; top: 20px;">Regulations</h3>
 		<ul class="nav" style="position: relative; left: 10px; top: 10px;">
 			<li class="nav-item">
 				<a class="nav-link" href="createCompliance.spring">Create Regulation</a>
@@ -60,13 +60,13 @@ if(session.getAttribute("userid")==null || session.getAttribute("role")==null)
 				<a class="nav-link" href="viewCompliancesDetails.spring">List Regulations</a>
 			</li>
 		</ul>
-		<h3 style="position: relative; left: 10px; top: 20px;">Status Reports</h3>
+		<h3 style="position: relative; left: 10px; top: 20px;">Compliance Tracking</h3>
 		<ul class="nav" style="position: relative; left: 10px; top: 10px;">
 			<!-- <li class="nav-item">
 				<a class="nav-link" href="createStatusReport.spring">Create Status Report</a>
 			</li> -->
 			<li class="nav-item">
-				<a class="nav-link" href="viewStatusReportsDetails.spring">List Status Reports</a>
+				<a class="nav-link" href="viewStatusReportsDetails.spring">View Status Reports</a>
 			</li>
 		</ul>
 		<a class="btn btn-primary" href="logout.spring" style="position: relative; top: 10px; margin: 20px;">Logout</a>

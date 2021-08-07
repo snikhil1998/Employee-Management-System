@@ -26,20 +26,20 @@ if(session.getAttribute("userid")==null || session.getAttribute("role")==null)
 		</script>
 	</head>
 	<body onload="noBack();" onpageshow="if (event.persisted) noBack();" onunload="">
-		<h2>Employee Management System - Admin Home</h2>
-		<h3 style="position: relative; left: 10px; top: 20px;">Compliances</h3>
+		<h2>Employee Management System - Employee Home</h2>
+		<!-- <h3 style="position: relative; left: 10px; top: 20px;">Compliances</h3> -->
 		<ul class="nav" style="position: relative; left: 10px; top: 10px;">
 			<li class="nav-item">
-				<a class="nav-link" href="viewAssignedCompliancesDetails.spring">List Pending Compliances</a>
+				<a class="nav-link" href="viewAssignedCompliancesDetails.spring">Regulations To Accept</a>
 			</li>
 		</ul>
-		<h3 style="position: relative; left: 10px; top: 20px;">Status Reports</h3>
+		<!-- <h3 style="position: relative; left: 10px; top: 20px;">Status Reports</h3> -->
 		<ul class="nav" style="position: relative; left: 10px; top: 10px;">
 			<!-- <li class="nav-item">
 				<a class="nav-link" href="createStatusReport.spring">Create Status Report</a>
 			</li> -->
 			<li class="nav-item">
-				<a class="nav-link" href="viewEmployeeStatusReportsDetails.spring">List Status Reports</a>
+				<a class="nav-link" href="viewEmployeeStatusReportsDetails.spring">View or Update Compliances</a>
 			</li>
 		</ul>
 		<a class="btn btn-primary" href="logout.spring" style="position: relative; top: 10px; margin: 20px;">Logout</a>
