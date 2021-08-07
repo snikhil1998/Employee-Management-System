@@ -37,7 +37,7 @@ if(session.getAttribute("userid")==null || session.getAttribute("role")==null)
 			<form action="addDepartmentDetails.spring" method="post">
 				<div class="form-group" style="position: relative; top: -10px">
 					<label for="department_nm">Department Name</label>
-					<input name="department_nm" type="text" class="form-control" id="department_nm" required>
+					<input name="department_nm" type="text" class="form-control" id="department_nm" maxlength="25" required>
 				</div>
 				<div style="position: relative; top: 10px">
 					<input type="submit" class="btn btn-primary " value="Submit"/>

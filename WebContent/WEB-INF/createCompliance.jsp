@@ -39,11 +39,11 @@ if(session.getAttribute("userid")==null || session.getAttribute("role")==null)
 				<!-- <div class="form-group" style="position: relative; top: 0px"> -->
 				<div class="form-group" style="margin: 10px;">
 					<label for="rltype">RL Type</label>
-					<input name="rltype" type="text" class="form-control" id="rltype" required>
+					<input name="rltype" type="text" class="form-control" id="rltype" maxlength="15" required>
 				</div>
 				<div class="form-group" style="margin: 10px;">
 					<label for="details">Details</label>
-					<input name="details" type="text" class="form-control" id="details" required>
+					<input name="details" type="text" class="form-control" id="details" maxlength="250" required>
 				</div>
 				<div class="form-group" style="margin: 10px;">
 					<label for="createdate">Date of Birth</label>

@@ -46,7 +46,7 @@ if(session.getAttribute("userid")==null || session.getAttribute("role")==null)
 			<form action="removeEmployeeDetails.spring" onSubmit="return confirm('Do you wish to delete this employee\'s details? This action is not reversible.')" method="post">
 				<div class="form-group" style="margin: 10px;">
 					<label for="empid">Employee ID</label>
-					<input name="empid" type="text" class="form-control" id="empid" required>
+					<input name="empid" type="text" class="form-control" id="empid" maxlength="10" required>
 				</div>
 				<div style="position: relative; top: 10px; margin: 10px;">
 					<input type="submit" class="btn btn-primary " value="Submit"/>

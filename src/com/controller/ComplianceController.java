@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.bean.Compliance;
 import com.bean.Department;
+import com.bean.StatusReport;
 import com.service.ComplianceService;
 import com.service.DepartmentService;
 
@@ -95,7 +96,7 @@ public class ComplianceController
 			mav.setViewName("WEB-INF/adminHome.jsp");
 			return mav;
 		}
-		session.setAttribute("allAssignedCompliancesDetails", complianceService.getDepartmentCompliancesDetails((Long)session.getAttribute("userid")));
+		session.setAttribute("allAssignedCompliancesDetails", complianceService.getEmployeeRemainingCompliancesDetails((Long)session.getAttribute("userid")));
 		/*HashMap<Long, String> hm = new HashMap<Long, String>();
 		for(Department dpt : departmentService.getAllDepartmentsDetails())
 		{
@@ -103,6 +104,72 @@ public class ComplianceController
 		}
 		session.setAttribute("allDepartmentsDetails", hm);*/
 		mav.setViewName("WEB-INF/listAssignedCompliances.jsp");
+		return mav;
+	}
+	@RequestMapping(value = "addComplianceComments", method = RequestMethod.POST)
+	public ModelAndView submitComplianceComments(HttpServletRequest req, HttpSession session)
+	{
+		Compliance c = new Compliance();
+		c.setComplianceid(Long.parseLong(req.getParameter("complianceid")));
+		c.setRltype(req.getParameter("rltype"));
+		c.setDetails(req.getParameter("details"));
+		c.setCreatedate(Date.valueOf(req.getParameter("createdate")));
+		c.setDepartment_id(Long.parseLong(req.getParameter("department_id")));
+		/*System.out.println(req.getParameter("complianceid"));
+		System.out.println(req.getParameter("rltype"));
+		System.out.println(req.getParameter("details"));
+		System.out.println(req.getParameter("createdate"));
+		System.out.println(req.getParameter("department_id"));*/
+		session.setAttribute("currentCompliance", c);
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("WEB-INF/submitComplianceComments.jsp");
+		return mav;
+	}
+	@RequestMapping(value = "viewEmployeeStatusReportsDetails")
+	public ModelAndView viewEmployeeStatusReportsDetails(HttpSession session)
+	{
+		ModelAndView mav = new ModelAndView();
+		if(session.getAttribute("role")==null)
+		{
+			mav.setViewName("index.jsp");
+			return mav;
+		}
+		if(!session.getAttribute("role").equals("user"))
+		{
+			mav.setViewName("WEB-INF/adminHome.jsp");
+			return mav;
+		}
+		/*session.setAttribute("allStatusReportsDetails", statusreportService.getAllStatusReportsDetails());
+		HashMap<Long, String> hm = new HashMap<Long, String>();
+		for(Department dpt : departmentService.getAllDepartmentsDetails())
+		{
+			hm.put(dpt.getDepartment_id(), dpt.getDepartment_nm());
+		}
+		session.setAttribute("allDepartmentsDetails", hm);*/
+		session.setAttribute("submittedCompliancesDetails", complianceService.getEmployeeCompliancesDetails((Long)session.getAttribute("userid")));
+		mav.setViewName("WEB-INF/listEmployeeStatusReports.jsp");
+		return mav;
+	}
+	@RequestMapping(value = "updateComplianceComments", method = RequestMethod.POST)
+	public ModelAndView viewEmployeeStatusReportsDetails(HttpServletRequest req, HttpSession session)
+	{
+		Compliance c = new Compliance();
+		StatusReport sr = new StatusReport();
+		c.setComplianceid(Long.parseLong(req.getParameter("complianceid")));
+		c.setRltype(req.getParameter("rltype"));
+		c.setDetails(req.getParameter("details"));
+		c.setCreatedate(Date.valueOf(req.getParameter("createdate")));
+		c.setDepartment_id(Long.parseLong(req.getParameter("department_id")));
+		sr.setStatusrptid(Long.parseLong(req.getParameter("statusrptid")));
+		sr.setComplianceid(Long.parseLong(req.getParameter("complianceid")));
+		sr.setEmpid((Long)session.getAttribute("userid"));
+		sr.setCreatedate(Date.valueOf(req.getParameter("createdate")));
+		sr.setComments(req.getParameter("comments"));
+		sr.setDepartment_id(Long.parseLong(req.getParameter("department_id")));
+		session.setAttribute("currentCompliance", c);
+		session.setAttribute("currentStatusReport", sr);
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("WEB-INF/updateComplianceComments.jsp");
 		return mav;
 	}
 }

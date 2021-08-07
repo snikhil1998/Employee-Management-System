@@ -14,9 +14,9 @@ if(session.getAttribute("userid")==null || session.getAttribute("role")==null)
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>Assigned Compliances</title>
+		<title>Add Compliance Comments</title>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-		<link rel="stylesheet" type="text/css" href="styles.css" />
+		<link href="styles.css" rel="stylesheet" type="text/css">
 		<script>
 			//if ( window.history.replaceState )
 			if(<%request.getSession().getAttribute("role");%> == null)
@@ -56,44 +56,49 @@ if(session.getAttribute("userid")==null || session.getAttribute("role")==null)
 		</style>
 	</head>
 	<body>
+		<!-- <h2>Add Employee Details<h2> -->
 		<div class="container">
 			<ul class="nav">
 				<li class="nav-item">
 					<a class="nav-link" href="employeeDashboard.spring">Dashboard</a>
 				</li>
 			</ul>
-			<h2>View All Department Details</h2>
-			<!-- <form action="submitComplianceComments.spring" method="post"> -->
+		</div>
+		<div class="container" style="border: 2px solid black; padding: 30px; margin: 30px;">
+			<form action="submitUpdatedComplianceComments.spring" method="post">
 				<table id="t01">
 					<tr>
+						<th>Status Report ID</th>
 						<th>Compliance ID</th>
 						<th>RL Type</th>
 						<th>Details</th>
 						<th>Date Created</th>
-						<!-- <th>Department</th> -->
-						<th>Comments</th>
+						<th>Date Submitted</th>
+						<th>Your Comments</th>
 					</tr>
-					<core:forEach items="${sessionScope.allAssignedCompliancesDetails}" var="compliance">
-						<tr>
-							<td>${compliance.complianceid}</td>
-							<td>${compliance.rltype}</td>
-							<td>${compliance.details}</td>
-							<td>${compliance.createdate}</td>
-							<!-- <td>${sessionScope.allDepartmentsDetails.get(compliance.department_id)}</td> -->
-							<td>
-								<form action="addComplianceComments.spring" method="post">
-									<input type="hidden" name="complianceid" value="${compliance.complianceid}"/>
-									<input type="hidden" name="rltype" value="${compliance.rltype}"/>
-									<input type="hidden" name="details" value="${compliance.details}"/>
-									<input type="hidden" name="createdate" value="${compliance.createdate}"/>
-									<input type="hidden" name="department_id" value="${compliance.department_id}"/>
-									<input type="submit" class="btn btn-primary " value="Add comments"/>
-								</form>
-							</td>
-						</tr>
-					</core:forEach>
+					<tr>
+						<td>${sessionScope.currentStatusReport.statusrptid}</td>
+						<td>${sessionScope.currentStatusReport.complianceid}</td>
+						<td>${sessionScope.currentCompliance.rltype}</td>
+						<td>${sessionScope.currentCompliance.details}</td>
+						<td>${sessionScope.currentCompliance.createdate}</td>
+						<td>${sessionScope.currentStatusReport.createdate}</td>
+						<td>${sessionScope.currentStatusReport.comments}</td>
+					</tr>
 				</table>
-			<!-- </form> -->
+				<div class="form-group" style="margin: 10px;">
+					<label for="newcomments">Comments</label>
+					<input name="newcomments" type="text" class="form-control" id="newcomments" maxlength="15" required>
+				</div>
+				<div style="position: relative; top: 10px; margin: 10px;">
+					<input type="hidden" name="statusrptid" value="${sessionScope.currentStatusReport.statusrptid}"/>
+					<input type="hidden" name="complianceid" value="${sessionScope.currentStatusReport.complianceid}"/>
+					<input type="hidden" name="submitdate" value="${sessionScope.currentStatusReport.createdate}"/>
+					<input type="hidden" name="comments" value="${sessionScope.currentStatusReport.comments}"/>
+					<input type="hidden" name="department_id" value="${sessionScope.currentStatusReport.department_id}"/>
+					<input type="submit" class="btn btn-primary " value="Submit"/>
+				</div>
+			</form>
 		</div>
 	</body>
 </html>

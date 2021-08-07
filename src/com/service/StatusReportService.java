@@ -14,8 +14,16 @@ public class StatusReportService
 	@Autowired
 	StatusReportDao statusreportDao;
 	
+	public String storeStatusReport(StatusReport sr)
+	{
+		return statusreportDao.storeStatusReport(sr)?"Comments submitted successfully":"Unable to submit comments";
+	}
 	public List<StatusReport> getAllStatusReportsDetails()
 	{
 		return statusreportDao.getAllStatusReportsDetails();
+	}
+	public String storeUpdatedStatusReport(StatusReport sr)
+	{
+		return statusreportDao.storeUpdatedStatusReport(sr)?"Comments updated successfully":"Unable to update comments";
 	}
 }

@@ -39,16 +39,16 @@ if(session.getAttribute("userid")==null || session.getAttribute("role")==null)
 			<form action="editEmployeeDetails.spring" style="position: relative; top: 20px;" method="post">
 				<div class="form-group" style="margin: 10px;">
 					<label for="empid">Employee ID</label>
-					<input name="empid" type="text" class="form-control" id="empid" value=${employeeDetails.empid} required>
+					<input name="empid" type="text" class="form-control" id="empid" value=${employeeDetails.empid} maxlength="10" required>
 				</div>
 				<!-- <div class="form-group" style="position: relative; top: 0px"> -->
 				<div class="form-group" style="margin: 10px;">
 					<label for="firstname">First Name</label>
-					<input name="firstname" type="text" class="form-control" id="firstname" value=${employeeDetails.firstname} required>
+					<input name="firstname" type="text" class="form-control" id="firstname" value=${employeeDetails.firstname} maxlength="45" required>
 				</div>
 				<div class="form-group" style="margin: 10px;">
 					<label for="lastname">Last Name</label>
-					<input name="lastname" type="text" class="form-control" id="lastname" value=${employeeDetails.lastname} required>
+					<input name="lastname" type="text" class="form-control" id="lastname" value=${employeeDetails.lastname} maxlength="45" required>
 				</div>
 				<div class="form-group" style="margin: 10px;">
 					<label for="dob">Date of Birth</label>
@@ -56,7 +56,7 @@ if(session.getAttribute("userid")==null || session.getAttribute("role")==null)
 				</div>
 				<div class="form-group" style="margin: 10px;">
 					<label for="email">Email id</label>
-					<input name="email" type="email" class="form-control" id="email" value=${employeeDetails.email}>
+					<input name="email" type="email" class="form-control" id="email" value=${employeeDetails.email} maxlength="100">
 				</div>
 				<div class="form-group" style="margin: 10px;">
 					<label for="department_id">Department ID</label>

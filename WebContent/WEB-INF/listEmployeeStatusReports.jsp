@@ -14,7 +14,7 @@ if(session.getAttribute("userid")==null || session.getAttribute("role")==null)
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>Status Reports</title>
+		<title>Compliances</title>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 		<link rel="stylesheet" type="text/css" href="styles.css" />
 		<script>
@@ -59,30 +59,49 @@ if(session.getAttribute("userid")==null || session.getAttribute("role")==null)
 		<div class="container">
 			<ul class="nav">
 				<li class="nav-item">
-					<a class="nav-link" href="adminDashboard.spring">Dashboard</a>
+					<a class="nav-link" href="employeeDashboard.spring">Dashboard</a>
 				</li>
 			</ul>
-			<h2>View All Department Details</h2>
+			<h2>View/Update Submitted Compliances</h2>
 			<table id="t01">
 				<tr>
 					<th>Status Report ID</th>
 					<th>Compliance ID</th>
-					<th>Employee ID</th>
-					<th>Comments</th>
+					<th>RL Type</th>
+					<th>Details</th>
 					<th>Date Created</th>
-					<th>Department</th>
+					<th>Date Submitted</th>
+					<th>Your Comments</th>
+					<th>Update Comments</th>
 				</tr>
-				<core:forEach items="${sessionScope.allStatusReportsDetails}" var="statusreport">
+				<core:forEach items="${sessionScope.submittedCompliancesDetails}" var="compliancedetails">
 					<tr>
-						<td>${statusreport.statusrptid}</td>
-						<td>${statusreport.complianceid}</td>
-						<td>${statusreport.empid}</td>
-						<td>${statusreport.comments}</td>
-						<td>${statusreport.createdate}</td>
-						<td>${sessionScope.allDepartmentsDetails.get(statusreport.department_id)}</td>
+						<td>${compliancedetails.key.statusrptid}</td>
+						<td>${compliancedetails.key.complianceid}</td>
+						<td>${compliancedetails.value.rltype}</td>
+						<td>${compliancedetails.value.details}</td>
+						<td>${compliancedetails.value.createdate}</td>
+						<td>${compliancedetails.key.createdate}</td>
+						<td>${compliancedetails.key.comments}</td>
+						<td>
+							<form action="updateComplianceComments.spring" method="post">
+								<input type="hidden" name="statusrptid" value="${compliancedetails.key.statusrptid}"/>
+								<input type="hidden" name="complianceid" value="${compliancedetails.key.complianceid}"/>
+								<input type="hidden" name="rltype" value="${compliancedetails.value.rltype}"/>
+								<input type="hidden" name="details" value="${compliancedetails.value.details}"/>
+								<input type="hidden" name="createdate" value="${compliancedetails.value.createdate}"/>
+								<input type="hidden" name="submitdate" value="${compliancedetails.key.createdate}"/>
+								<input type="hidden" name="comments" value="${compliancedetails.key.comments}"/>
+								<input type="hidden" name="department_id" value="${compliancedetails.key.department_id}"/>
+								<input type="submit" class="btn btn-primary " value="Update comments"/>
+							</form>
+						</td>
 					</tr>
 				</core:forEach>
 			</table>
+		</div>
+		<div style="position: relative; top: 25px">
+			<span style="color: red">${requestScope.msg}</span>
 		</div>
 	</body>
 </html>

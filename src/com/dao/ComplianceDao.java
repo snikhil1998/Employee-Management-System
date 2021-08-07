@@ -1,5 +1,7 @@
 package com.dao;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -11,12 +13,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.bean.Compliance;
+import com.bean.Employee;
+import com.bean.StatusReport;
 
 @Repository
 public class ComplianceDao
 {
 	@Autowired
 	EntityManagerFactory emf;
+	@Autowired
+	StatusReportDao statusreportDao;
 	
 	public boolean storeComplianceInformation(Compliance c)
 	{
@@ -33,11 +39,34 @@ public class ComplianceDao
 		Query qry = manager.createQuery("select c from Compliance c");
 		return qry.getResultList();
 	}
-	public List<Compliance> getDepartmentCompliancesDetails(long department_id)
+	public List<Compliance> getEmployeeRemainingCompliancesDetails(long empid)
 	{
 		EntityManager manager = emf.createEntityManager();
 		Query qry = manager.createQuery("select c from Compliance c where c.department_id=:department_id");
-		qry.setParameter("department_id", department_id);
-		return qry.getResultList();
+		qry.setParameter("department_id", manager.find(Employee.class, empid).getDepartment_id());
+		List<Compliance> remainingCompliancesDetails = new ArrayList<Compliance>();
+		for(Compliance c: (List<Compliance>)qry.getResultList())
+		{
+//			if(manager.createQuery("select sr from StatusReport sr where sr.empid=:empid and sr.complianceid=:complianceid").setParameter("empid", empid).setParameter("complianceid", c.getComplianceid()).getResultList()==null)
+			Query statusreport = manager.createQuery("select sr from StatusReport sr where sr.empid=:empid and sr.complianceid=:complianceid");
+			statusreport.setParameter("empid", empid);
+			statusreport.setParameter("complianceid", c.getComplianceid());
+			if(statusreport.getResultList().size()==0)
+			{
+				remainingCompliancesDetails.add(c);
+			}
+		}
+		return remainingCompliancesDetails;
+	}
+	public HashMap<StatusReport, Compliance> getEmployeeCompliancesDetails(long empid)
+	{
+		EntityManager manager = emf.createEntityManager();
+		List<StatusReport> employeeStatusReports = statusreportDao.getEmployeeStatusReportsDetails(empid);
+		HashMap<StatusReport, Compliance> submittedCompliances = new HashMap<StatusReport, Compliance>();
+		for(StatusReport sr: employeeStatusReports)
+		{
+			submittedCompliances.put(sr, manager.find(Compliance.class, sr.getComplianceid()));
+		}
+		return submittedCompliances;
 	}
 }

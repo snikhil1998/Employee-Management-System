@@ -39,7 +39,7 @@ if(session.getAttribute("userid")==null || session.getAttribute("role")==null)
 				<a class="nav-link" href="createStatusReport.spring">Create Status Report</a>
 			</li> -->
 			<li class="nav-item">
-				<a class="nav-link" href="viewStatusReportsDetails.spring">List Status Reports</a>
+				<a class="nav-link" href="viewEmployeeStatusReportsDetails.spring">List Status Reports</a>
 			</li>
 		</ul>
 		<a class="btn btn-primary" href="logout.spring" style="position: relative; top: 10px; margin: 20px;">Logout</a>
