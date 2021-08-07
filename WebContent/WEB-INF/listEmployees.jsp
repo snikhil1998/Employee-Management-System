@@ -62,7 +62,7 @@ if(session.getAttribute("userid")==null || session.getAttribute("role")==null)
 					<a class="nav-link" href="adminDashboard.spring">Dashboard</a>
 				</li>
 			</ul>
-			<h2>View All Department Details</h2>
+			<h2>View All Employees Details</h2>
 			<table id="t01">
 				<tr>
 					<th>Employee ID</th>
