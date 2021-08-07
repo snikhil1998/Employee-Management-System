@@ -30,7 +30,7 @@ if(session.getAttribute("userid")==null || session.getAttribute("role")==null)
 		<h3 style="position: relative; left: 10px; top: 20px;">Compliances</h3>
 		<ul class="nav" style="position: relative; left: 10px; top: 10px;">
 			<li class="nav-item">
-				<a class="nav-link" href="viewAssignedCompliancesDetails.spring">List Regulations</a>
+				<a class="nav-link" href="viewAssignedCompliancesDetails.spring">List Pending Compliances</a>
 			</li>
 		</ul>
 		<h3 style="position: relative; left: 10px; top: 20px;">Status Reports</h3>

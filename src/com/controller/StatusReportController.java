@@ -43,9 +43,9 @@ public class StatusReportController
 				mav.setViewName("index.jsp");
 				return mav;
 			}
-			if(!session.getAttribute("role").equals("user"))
+			if(!session.getAttribute("role").equals("admin"))
 			{
-				mav.setViewName("WEB-INF/adminHome.jsp");
+				mav.setViewName("WEB-INF/employeeHome.jsp");
 				return mav;
 			}
 			session.setAttribute("allStatusReportsDetails", statusreportService.getAllStatusReportsDetails());
