@@ -12,4 +12,4 @@
 - The URL for the project will be
 localhost:8080/Employee-Management-System/
 - The database login credentials can be changed in the `dispatcher-servlet.xml` file.
-- Admin password can be changed in the `employee_db.sql` file in the last second line.
+- The default admin password is "admin" and the employee password is hardcoded as "emp". Admin password can be changed in the `employee_db.sql` file in the last second line while the default employee password can be changed in the `addLoginCredentials()` function in `src/com/dao/LoginDao.java` file.
